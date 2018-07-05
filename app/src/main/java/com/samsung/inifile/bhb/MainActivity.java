@@ -28,7 +28,7 @@ public class MainActivity extends AppCompatActivity {
                     return true;
                 case R.id.navigation_feed:
                     return true;
-                case R.id.navigation_post:
+                case R.id.navigation_scoop:
                     return true;
                 case R.id.navigation_rank:
                     return true;
