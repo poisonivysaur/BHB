@@ -14,6 +14,7 @@ import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
@@ -58,10 +59,10 @@ public class LoginActivity extends BaseActivity implements
 
         // Button listeners
         findViewById(R.id.sign_in_button).setOnClickListener(this);
-        /*
-        findViewById(R.id.sign_out_button).setOnClickListener(this);
+
+        //findViewById(R.id.sign_out_button).setOnClickListener(this);
         findViewById(R.id.disconnect_button).setOnClickListener(this);
-        */
+
 
         // [START config_signin]
         // Configure Google Sign In
@@ -84,7 +85,13 @@ public class LoginActivity extends BaseActivity implements
         super.onStart();
         // Check if user is signed in (non-null) and update UI accordingly.
         FirebaseUser currentUser = mAuth.getCurrentUser();
-        //updateUI(currentUser);
+        updateUI(currentUser);
+
+        if (GoogleSignIn.getLastSignedInAccount(getApplicationContext()) != null) {
+            findViewById(R.id.disconnect_button).setEnabled(true);
+        } else {
+            findViewById(R.id.disconnect_button).setEnabled(false);
+        }
     }
     // [END on_start_check_user]
 
@@ -104,7 +111,7 @@ public class LoginActivity extends BaseActivity implements
                 // Google Sign In failed, update UI appropriately
                 Log.w(TAG, "Google sign in failed", e);
                 // [START_EXCLUDE]
-                //updateUI(null);
+                updateUI(null);
                 // [END_EXCLUDE]
             }
         }
@@ -127,20 +134,17 @@ public class LoginActivity extends BaseActivity implements
                             // Sign in success, update UI with the signed-in user's information
                             Log.d(TAG, "signInWithCredential:success");
                             FirebaseUser user = mAuth.getCurrentUser();
-                            //updateUI(user);
+                            updateUI(user);
                         } else {
                             // If sign in fails, display a message to the user.
                             Log.w(TAG, "signInWithCredential:failure", task.getException());
                             Snackbar.make(findViewById(R.id.main_layout), "Authentication Failed.", Snackbar.LENGTH_SHORT).show();
-                            //updateUI(null);
+                            updateUI(null);
                         }
 
                         // [START_EXCLUDE]
                         hideProgressDialog();
                         // [END_EXCLUDE]
-
-                        Intent i = new Intent(LoginActivity.this, MainActivity.class);
-                        startActivity(i);
                     }
                 });
     }
@@ -152,7 +156,7 @@ public class LoginActivity extends BaseActivity implements
         startActivityForResult(signInIntent, RC_SIGN_IN);
     }
     // [END signin]
-
+/*
     private void signOut() {
         // Firebase sign out
         mAuth.signOut();
@@ -162,42 +166,60 @@ public class LoginActivity extends BaseActivity implements
                 new OnCompleteListener<Void>() {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {
-                        //updateUI(null);
+                        updateUI(null);
                     }
                 });
     }
-
+*/
     private void revokeAccess() {
         // Firebase sign out
-        mAuth.signOut();
+        //mAuth.signOut();
 
-        // Google revoke access
-        mGoogleSignInClient.revokeAccess().addOnCompleteListener(this,
-                new OnCompleteListener<Void>() {
-                    @Override
-                    public void onComplete(@NonNull Task<Void> task) {
-                        //updateUI(null);
-                    }
-                });
+        //Log.d("mGoogleSignInClient", "" + mGoogleSignInClient);
+
+        if (mGoogleSignInClient != null) {
+            // Google revoke access
+            mGoogleSignInClient.revokeAccess().addOnCompleteListener(this,
+                    new OnCompleteListener<Void>() {
+                        @Override
+                        public void onComplete(@NonNull Task<Void> task) {
+                            updateUI(null);
+                            Snackbar.make(findViewById(R.id.main_layout), "Disconnection successful.", Snackbar.LENGTH_SHORT).show();
+                            findViewById(R.id.disconnect_button).setEnabled(false);
+                        }
+                    });
+        }
+
     }
-    /*
+
     private void updateUI(FirebaseUser user) {
         hideProgressDialog();
         if (user != null) {
+            /*
             mStatusTextView.setText(getString(R.string.google_status_fmt, user.getEmail()));
             mDetailTextView.setText(getString(R.string.firebase_status_fmt, user.getUid()));
 
             findViewById(R.id.sign_in_button).setVisibility(View.GONE);
             //findViewById(R.id.sign_out_and_disconnect).setVisibility(View.VISIBLE);
+            */
+
+            //findViewById(R.id.disconnect_button).setEnabled(true);
+            Intent i = new Intent(LoginActivity.this, MainActivity.class);
+            startActivity(i);
+            finish();
         } else {
+            /*
             mStatusTextView.setText(R.string.signed_out);
             mDetailTextView.setText(null);
 
             findViewById(R.id.sign_in_button).setVisibility(View.VISIBLE);
-            //findViewById(R.id.sign_out_and_disconnect).setVisibility(View.GONE);
+            findViewById(R.id.sign_out_and_disconnect).setVisibility(View.GONE);
+            */
+
+            //findViewById(R.id.disconnect_button).setEnabled(false);
         }
     }
-    */
+
     @Override
     public void onClick(View v) {
         int i = v.getId();
@@ -205,8 +227,8 @@ public class LoginActivity extends BaseActivity implements
             signIn();
         } /*else if (i == R.id.sign_out_button) {
             signOut();
-        } else if (i == R.id.disconnect_button) {
+        }*/ else if (i == R.id.disconnect_button) {
             revokeAccess();
-        }*/
+        }
     }
 }
