@@ -1,5 +1,7 @@
 package com.samsung.inifile.bhb;
 
+import android.app.SearchManager;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Build;
@@ -9,10 +11,19 @@ import android.support.annotation.RequiresApi;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.DefaultItemAnimator;
+import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.widget.SearchView;
+import android.widget.Toolbar;
 
 import com.miguelcatalan.materialsearchview.MaterialSearchView;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -23,6 +34,7 @@ public class MainActivity extends AppCompatActivity {
 
         @Override
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+            resetStack();
             switch (item.getItemId()) {
                 case R.id.navigation_home:
                     HomeFragment home = new HomeFragment();
@@ -57,5 +69,12 @@ public class MainActivity extends AppCompatActivity {
         HomeFragment home = new HomeFragment();
         fragmentManager = getSupportFragmentManager();
         fragmentManager.beginTransaction().replace(R.id.main_fragment, home).commit();
+    }
+
+    public void resetStack() {
+        int count = fragmentManager.getBackStackEntryCount();
+        for(int i = 0; i < count; ++i) {
+            fragmentManager.popBackStackImmediate();
+        }
     }
 }
