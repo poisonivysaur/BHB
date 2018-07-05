@@ -30,6 +30,8 @@ public class ProfileFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
+        ((MainActivity) getActivity()).getSupportActionBar().setTitle("Profile");
+
         View view = inflater.inflate(R.layout.fragment_profile, container, false);
 
         recyclerView = view.findViewById(R.id.profile_recycleview);
