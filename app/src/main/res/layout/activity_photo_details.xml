@@ -38,11 +38,11 @@
                     android:id="@+id/caption_input"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:inputType="textMultiLine"
-                    android:hint="Write a caption..."
                     android:background="@android:color/transparent"
-                    android:textColorHint="@color/placeholder"
+                    android:hint="Write a caption..."
+                    android:inputType="textMultiLine"
                     android:textColor="@android:color/black"
+                    android:textColorHint="@color/placeholder"
                     android:textSize="@dimen/subheading_label"
                     tools:text="Write a caption..." />
 
@@ -54,111 +54,136 @@
             android:layout_width="match_parent"
             android:layout_height="1dp"
             android:layout_margin="10dp"
-            android:background="@color/placeholder"/>
+            android:background="@color/placeholder" />
 
         <LinearLayout
-            android:id="@+id/item_date_details"
+            android:id="@+id/more_options"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:padding="10dp">
-
-
-        </LinearLayout>
-
-        <!--<LinearLayout
-            android:id="@+id/more_info"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:padding="10dp">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginEnd="36dp"
-                    android:text="Author"
-                    android:textSize="@dimen/subheading_label" />
-
-                <TextView
-                    android:id="@+id/author"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Guy Ritchi"
-                    android:textColor="@color/year"
-                    tools:text="Guy Ritchie" />
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginEnd="18dp"
-                    android:text="Publisher"
-                    android:textSize="@dimen/subheading_label" />
-
-                <TextView
-                    android:id="@+id/publisher"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Joel Schumacher Productions, Really Useful Films, Scion Films"
-                    android:textColor="@color/year"
-                    tools:text="Joel Schumacher Productions, Really Useful Films, Scion Films" />
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginEnd="44dp"
-                    android:text="Pages"
-                    android:textSize="@dimen/subheading_label" />
-
-                <TextView
-                    android:id="@+id/pages"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="184"
-                    android:textColor="@color/year"
-                    tools:text="Joel Schumacher Productions, Really Useful Films, Scion Films" />
-
-            </LinearLayout>
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="top|bottom|center_vertical|fill_vertical|center|fill"
                 android:layout_marginTop="@dimen/activity_horizontal_margin"
-                android:text="Description"
+                android:text="Location"
                 android:textAllCaps="true"
                 android:textSize="@dimen/subheading_label" />
 
             <TextView
-                android:id="@+id/description"
+                android:id="@+id/location"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="top|bottom|center_vertical|fill_vertical|center|fill"
-                android:text="@string/synopsis_test"
-                android:textColor="@color/year"
+                android:text="De La Salle University Manila"
+                android:textColor="@color/placeholder"
                 android:textSize="@dimen/subheading_label"
-                tools:text="@string/synopsis_test" />
+                tools:text="asdfasdf" />
 
-        </LinearLayout>-->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="top|bottom|center_vertical|fill_vertical|center|fill"
+                android:layout_marginTop="@dimen/activity_horizontal_margin"
+                android:text="Status"
+                android:textAllCaps="true"
+                android:textSize="@dimen/subheading_label" />
+
+            <Switch
+                android:id="@+id/blockage"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/activity_horizontal_margin"
+                android:gravity="left"
+                android:text="Road Construction  /Blockage"
+                android:textSize="@dimen/subheading_label" />
+
+            <Switch
+                android:id="@+id/minor_accidents"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/activity_horizontal_margin"
+                android:gravity="left"
+                android:text="Minor Accidents"
+                android:textSize="@dimen/subheading_label" />
+
+            <Switch
+                android:id="@+id/major_accidents"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/activity_horizontal_margin"
+                android:gravity="left"
+                android:text="Major Accidents"
+                android:textSize="@dimen/subheading_label" />
+
+            <Switch
+                android:id="@+id/rally"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/activity_horizontal_margin"
+                android:gravity="left"
+                android:text="Rally / Parade / Procession / Festivals"
+                android:textSize="@dimen/subheading_label" />
+
+            <CheckBox
+                android:id="@+id/gutter"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/activity_horizontal_margin"
+                android:button="@null"
+                android:drawableRight="?android:attr/listChoiceIndicatorMultiple"
+                android:text="Gutter deep flood (~1ft.)"
+                android:textAppearance="?android:textAppearanceMedium"
+                android:textSize="16sp" />
+
+            <CheckBox
+                android:id="@+id/knee"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/activity_horizontal_margin"
+                android:button="@null"
+                android:drawableRight="?android:attr/listChoiceIndicatorMultiple"
+                android:text="Knee deep flood (~2ft.)"
+                android:textAppearance="?android:textAppearanceMedium"
+                android:textSize="16sp" />
+
+            <CheckBox
+                android:id="@+id/waist"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/activity_horizontal_margin"
+                android:button="@null"
+                android:drawableRight="?android:attr/listChoiceIndicatorMultiple"
+                android:text="Waist deep flood (~3ft.)"
+                android:textAppearance="?android:textAppearanceMedium"
+                android:textSize="16sp" />
+
+            <CheckBox
+                android:id="@+id/chest"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/activity_horizontal_margin"
+                android:button="@null"
+                android:drawableRight="?android:attr/listChoiceIndicatorMultiple"
+                android:text="Chest deep flood (~4ft.)"
+                android:textAppearance="?android:textAppearanceMedium"
+                android:textSize="16sp" />
+
+            <CheckBox
+                android:id="@+id/neck"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/activity_horizontal_margin"
+                android:button="@null"
+                android:drawableRight="?android:attr/listChoiceIndicatorMultiple"
+                android:text="Neck &amp; above deep flood (~5ft.)"
+                android:textAppearance="?android:textAppearanceMedium"
+                android:textSize="16sp" />
+
+
+        </LinearLayout>
 
     </LinearLayout>
 
