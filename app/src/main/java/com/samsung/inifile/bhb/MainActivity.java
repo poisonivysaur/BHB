@@ -35,8 +35,8 @@ public class MainActivity extends AppCompatActivity {
 
         @Override
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-            resetStack();
             if (item.getItemId() == R.id.navigation_home && navItem != 0) {
+                resetStack();
                 navItem = 0;
                 HomeFragment home = new HomeFragment();
                 fragmentManager = getSupportFragmentManager();
@@ -44,18 +44,22 @@ public class MainActivity extends AppCompatActivity {
                 return true;
             }
             else if (item.getItemId() == R.id.navigation_feed && navItem != 1) {
+                resetStack();
                 navItem = 1;
                 return true;
             }
             else if (item.getItemId() == R.id.navigation_post && navItem != 2) {
+                resetStack();
                 navItem = 2;
                 return true;
             }
             else if (item.getItemId() == R.id.navigation_rank && navItem != 3) {
+                resetStack();
                 navItem = 3;
                 return true;
             }
             else if (item.getItemId() == R.id.navigation_profile && navItem != 4) {
+                resetStack();
                 navItem = 4;
                 ProfileFragment profile = new ProfileFragment();
                 fragmentManager = getSupportFragmentManager();
@@ -71,12 +75,13 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
+        BottomNavigationView navigation = findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
         BottomNavigationViewHelper.disableShiftMode(navigation);
 
         HomeFragment home = new HomeFragment();
         fragmentManager = getSupportFragmentManager();
+        resetStack();
         fragmentManager.beginTransaction().replace(R.id.main_fragment, home).commit();
     }
 

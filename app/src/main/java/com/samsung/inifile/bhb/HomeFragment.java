@@ -24,7 +24,7 @@ public class HomeFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        ((MainActivity) getActivity()).getSupportActionBar().setTitle("BHB");
+        getActivity().setTitle("BHB");
 
         View view = inflater.inflate(R.layout.fragment_home, container, false);
 
