@@ -37,17 +37,17 @@ public class HomeFragment extends Fragment {
     }
 
     public void legendDialog() {
-        String help = "RED - Neck & above deep flood (5ft)" + System.getProperty("line.separator") +
-                        "ORANGE - Waist deep flood (3ft)" + System.getProperty("line.separator") +
-                        "YELLOW - Gutter deep flood (1ft)" + System.getProperty("line.separator") +
-                        "PINK - Road construction/blockage" + System.getProperty("line.separator") +
-                        "PURPLE - Accidents" + System.getProperty("line.separator") +
+        String help = "RED - Neck & above deep flood (5ft)" +
+                        "ORANGE - Waist deep flood (3ft)" +
+                        "YELLOW - Gutter deep flood (1ft)" +
+                        "PINK - Road construction/blockage" +
+                        "PURPLE - Accidents" +
                         "BLUE - Rally/Parade/Procession/Festival";
-        help = help.replace("RED", "<font color='#FF0000'>RED</font>");
-        help = help.replace("ORANGE", "<font color='#FF5D00'>ORANGE</font>");
-        help = help.replace("YELLOW", "<font color='#FFF600'>YELLOW</font>");
-        help = help.replace("PINK", "<font color='#FFA0F3'>PINK</font>");
-        help = help.replace("PURPLE", "<font color='#4F0F47'>PURPLE</font>");
+        help = help.replace("RED", "<font color='#FF0000'>RED</font><br>");
+        help = help.replace("ORANGE", "<font color='#FF5D00'>ORANGE</font><br>");
+        help = help.replace("YELLOW", "<font color='#FFF600'>YELLOW</font><br>");
+        help = help.replace("PINK", "<font color='#FFA0F3'>PINK</font><br>");
+        help = help.replace("PURPLE", "<font color='#4F0F47'>PURPLE</font><br>");
         help = help.replace("BLUE", "<font color='#0000FF'>BLUE</font>");
         new AlertDialog.Builder(getContext())
                 .setTitle("LEGEND")
