@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="@dimen/nav_header_vertical_spacing">
+
+        <LinearLayout
+            android:id="@+id/view_foreground"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent">
+
+            <ImageView
+                android:id="@+id/image"
+                android:layout_width="@dimen/list_item_height"
+                android:layout_height="@dimen/list_item_height"
+                android:src="@drawable/ic_image_24dp"
+                tools:src="@drawable/ic_image_24dp" />
+
+            <LinearLayout
+                android:id="@+id/text_container"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="@dimen/activity_padding_horizontal">
+
+                <EditText
+                    android:id="@+id/caption_input"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="textMultiLine"
+                    android:hint="Write a caption..."
+                    android:background="@android:color/transparent"
+                    android:textColorHint="@color/placeholder"
+                    android:textColor="@android:color/black"
+                    android:textSize="@dimen/subheading_label"
+                    tools:text="Write a caption..." />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_margin="10dp"
+            android:background="@color/placeholder"/>
+
+        <LinearLayout
+            android:id="@+id/item_date_details"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="10dp">
+
+
+        </LinearLayout>
+
+        <!--<LinearLayout
+            android:id="@+id/more_info"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="10dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="36dp"
+                    android:text="Author"
+                    android:textSize="@dimen/subheading_label" />
+
+                <TextView
+                    android:id="@+id/author"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Guy Ritchi"
+                    android:textColor="@color/year"
+                    tools:text="Guy Ritchie" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="18dp"
+                    android:text="Publisher"
+                    android:textSize="@dimen/subheading_label" />
+
+                <TextView
+                    android:id="@+id/publisher"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Joel Schumacher Productions, Really Useful Films, Scion Films"
+                    android:textColor="@color/year"
+                    tools:text="Joel Schumacher Productions, Really Useful Films, Scion Films" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="44dp"
+                    android:text="Pages"
+                    android:textSize="@dimen/subheading_label" />
+
+                <TextView
+                    android:id="@+id/pages"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="184"
+                    android:textColor="@color/year"
+                    tools:text="Joel Schumacher Productions, Really Useful Films, Scion Films" />
+
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="top|bottom|center_vertical|fill_vertical|center|fill"
+                android:layout_marginTop="@dimen/activity_horizontal_margin"
+                android:text="Description"
+                android:textAllCaps="true"
+                android:textSize="@dimen/subheading_label" />
+
+            <TextView
+                android:id="@+id/description"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="top|bottom|center_vertical|fill_vertical|center|fill"
+                android:text="@string/synopsis_test"
+                android:textColor="@color/year"
+                android:textSize="@dimen/subheading_label"
+                tools:text="@string/synopsis_test" />
+
+        </LinearLayout>-->
+
+    </LinearLayout>
+
+</ScrollView>
