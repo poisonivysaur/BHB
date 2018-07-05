@@ -28,6 +28,7 @@ import java.util.List;
 public class MainActivity extends AppCompatActivity {
 
     private FragmentManager fragmentManager;
+    private int navItem;
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -35,23 +36,31 @@ public class MainActivity extends AppCompatActivity {
         @Override
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
             resetStack();
-            switch (item.getItemId()) {
-                case R.id.navigation_home:
-                    HomeFragment home = new HomeFragment();
-                    fragmentManager = getSupportFragmentManager();
-                    fragmentManager.beginTransaction().replace(R.id.main_fragment, home).commit();
-                    return true;
-                case R.id.navigation_feed:
-                    return true;
-                case R.id.navigation_post:
-                    return true;
-                case R.id.navigation_rank:
-                    return true;
-                case R.id.navigation_profile:
-                    ProfileFragment profile = new ProfileFragment();
-                    fragmentManager = getSupportFragmentManager();
-                    fragmentManager.beginTransaction().replace(R.id.main_fragment, profile).addToBackStack(null).commit();
-                    return true;
+            if (item.getItemId() == R.id.navigation_home && navItem != 0) {
+                navItem = 0;
+                HomeFragment home = new HomeFragment();
+                fragmentManager = getSupportFragmentManager();
+                fragmentManager.beginTransaction().replace(R.id.main_fragment, home).commit();
+                return true;
+            }
+            else if (item.getItemId() == R.id.navigation_feed && navItem != 1) {
+                navItem = 1;
+                return true;
+            }
+            else if (item.getItemId() == R.id.navigation_post && navItem != 2) {
+                navItem = 2;
+                return true;
+            }
+            else if (item.getItemId() == R.id.navigation_rank && navItem != 3) {
+                navItem = 3;
+                return true;
+            }
+            else if (item.getItemId() == R.id.navigation_profile && navItem != 4) {
+                navItem = 4;
+                ProfileFragment profile = new ProfileFragment();
+                fragmentManager = getSupportFragmentManager();
+                fragmentManager.beginTransaction().replace(R.id.main_fragment, profile).addToBackStack(null).commit();
+                return true;
             }
             return false;
         }
