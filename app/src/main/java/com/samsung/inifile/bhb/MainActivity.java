@@ -63,7 +63,9 @@ public class MainActivity extends AppCompatActivity {
             else if (item.getItemId() == R.id.navigation_scoop && navItem != 2) {
                 resetStack();
                 navItem = 2;
-                dispatchTakePictureIntent();
+                Intent intent = new Intent(MainActivity.this, PhotoDetailsActivity.class);
+                startActivity(intent);
+                //dispatchTakePictureIntent();
                 return true;
             }
             else if (item.getItemId() == R.id.navigation_rank && navItem != 3) {
