@@ -14,6 +14,8 @@ import android.support.v7.widget.RecyclerView;
 import android.util.TypedValue;
 import android.view.ContextThemeWrapper;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -31,6 +33,7 @@ public class ProfileFragment extends Fragment {
                              Bundle savedInstanceState) {
 
         getActivity().setTitle("Profile");
+        setHasOptionsMenu(true);
 
         View view = inflater.inflate(R.layout.fragment_profile, container, false);
 
@@ -76,5 +79,11 @@ public class ProfileFragment extends Fragment {
             super.getItemOffsets(outRect, view, parent, state);
             outRect.set(mItemOffset, mItemOffset, mItemOffset, mItemOffset);
         }
+    }
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        inflater.inflate(R.menu.profile_menu, menu);
+        super.onCreateOptionsMenu(menu,inflater);
     }
 }
