@@ -16,8 +16,14 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 
+import com.google.android.gms.auth.api.signin.GoogleSignIn;
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
+import com.google.android.gms.auth.api.signin.GoogleSignInClient;
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
+
 public class ProfileFragment extends Fragment {
     private FirebaseAuth mAuth;
+    private GoogleSignInClient mGoogleSignInClient;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -32,6 +38,18 @@ public class ProfileFragment extends Fragment {
             public void onClick(View view) {
                 mAuth = FirebaseAuth.getInstance();
                 mAuth.signOut();
+
+                // [START config_signin]
+                // Configure Google Sign In
+                GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                        .requestIdToken(getString(R.string.default_web_client_id))
+                        .requestEmail()
+                        .build();
+                // [END config_signin]
+
+                mGoogleSignInClient = GoogleSignIn.getClient(getContext(), gso);
+
+                mGoogleSignInClient.signOut();
 
                 Intent i = new Intent(getContext(), LoginActivity.class);
                 startActivity(i);
