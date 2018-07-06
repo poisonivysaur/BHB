@@ -127,61 +127,61 @@
                 android:text="Rally / Parade / Procession / Festivals"
                 android:textSize="@dimen/subheading_label" />
 
-            <CheckBox
-                android:id="@+id/gutter"
-                android:layout_width="fill_parent"
+            <RadioGroup xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/activity_horizontal_margin"
-                android:button="@null"
-                android:drawableRight="?android:attr/listChoiceIndicatorMultiple"
-                android:text="Gutter deep flood (~1ft.)"
-                android:textAppearance="?android:textAppearanceMedium"
-                android:textSize="16sp" />
+                android:orientation="vertical">
 
-            <CheckBox
-                android:id="@+id/knee"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/activity_horizontal_margin"
-                android:button="@null"
-                android:drawableRight="?android:attr/listChoiceIndicatorMultiple"
-                android:text="Knee deep flood (~2ft.)"
-                android:textAppearance="?android:textAppearanceMedium"
-                android:textSize="16sp" />
+                <RadioButton
+                    android:id="@+id/gutter"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/activity_horizontal_margin"
+                    android:button="@null"
+                    android:drawableRight="?android:attr/listChoiceIndicatorMultiple"
+                    android:text="Gutter deep flood (~1ft.)"
+                    android:textSize="16sp" />
 
-            <CheckBox
-                android:id="@+id/waist"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/activity_horizontal_margin"
-                android:button="@null"
-                android:drawableRight="?android:attr/listChoiceIndicatorMultiple"
-                android:text="Waist deep flood (~3ft.)"
-                android:textAppearance="?android:textAppearanceMedium"
-                android:textSize="16sp" />
+                <RadioButton
+                    android:id="@+id/knee"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/activity_horizontal_margin"
+                    android:button="@null"
+                    android:drawableRight="?android:attr/listChoiceIndicatorMultiple"
+                    android:text="Knee deep flood (~2ft.)"
+                    android:textSize="16sp" />
 
-            <CheckBox
-                android:id="@+id/chest"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/activity_horizontal_margin"
-                android:button="@null"
-                android:drawableRight="?android:attr/listChoiceIndicatorMultiple"
-                android:text="Chest deep flood (~4ft.)"
-                android:textAppearance="?android:textAppearanceMedium"
-                android:textSize="16sp" />
+                <RadioButton
+                    android:id="@+id/waist"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/activity_horizontal_margin"
+                    android:button="@null"
+                    android:drawableRight="?android:attr/listChoiceIndicatorMultiple"
+                    android:text="Waist deep flood (~3ft.)"
+                    android:textSize="16sp" />
 
-            <CheckBox
-                android:id="@+id/neck"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/activity_horizontal_margin"
-                android:button="@null"
-                android:drawableRight="?android:attr/listChoiceIndicatorMultiple"
-                android:text="Neck &amp; above deep flood (~5ft.)"
-                android:textAppearance="?android:textAppearanceMedium"
-                android:textSize="16sp" />
+                <RadioButton
+                    android:id="@+id/chest"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/activity_horizontal_margin"
+                    android:button="@null"
+                    android:drawableRight="?android:attr/listChoiceIndicatorMultiple"
+                    android:text="Chest deep flood (~4ft.)"
+                    android:textSize="16sp" />
 
+                <RadioButton
+                    android:id="@+id/neck"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/activity_horizontal_margin"
+                    android:button="@null"
+                    android:drawableRight="?android:attr/listChoiceIndicatorMultiple"
+                    android:text="Neck &amp; above deep flood (~5ft.)"
+                    android:textSize="16sp" />
+            </RadioGroup>
 
         </LinearLayout>
 
