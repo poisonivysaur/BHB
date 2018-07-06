@@ -18,11 +18,14 @@ import android.view.ContextThemeWrapper;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
 
+import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
@@ -33,7 +36,8 @@ import java.util.List;
 
 public class ProfileFragment extends Fragment {
     private FirebaseAuth mAuth;
-
+    private GoogleSignInClient mGoogleSignInClient;
+    
     private RecyclerView recyclerView;
     private PostAdapter postAdapter;
     private List<Post> postList;
@@ -59,18 +63,6 @@ public class ProfileFragment extends Fragment {
         recyclerView.setAdapter(postAdapter);
 
         preparePosts();
-
-        view.findViewById(R.id.sign_out_button).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                mAuth = FirebaseAuth.getInstance();
-                mAuth.signOut();
-
-                Intent i = new Intent(getContext(), LoginActivity.class);
-                startActivity(i);
-                getActivity().finish();
-            }
-        });
 
         return view;
     }
@@ -107,5 +99,34 @@ public class ProfileFragment extends Fragment {
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         inflater.inflate(R.menu.profile_menu, menu);
         super.onCreateOptionsMenu(menu,inflater);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.profile_setting:
+                return true;
+            case R.id.profile_signout:
+                mAuth = FirebaseAuth.getInstance();
+                mAuth.signOut();
+
+                // [START config_signin]
+                // Configure Google Sign In
+                GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                        .requestIdToken(getString(R.string.default_web_client_id))
+                        .requestEmail()
+                        .build();
+                // [END config_signin]
+
+                mGoogleSignInClient = GoogleSignIn.getClient(getContext(), gso);
+
+                mGoogleSignInClient.signOut();
+
+                Intent i = new Intent(getContext(), LoginActivity.class);
+                startActivity(i);
+                getActivity().finish();
+                return true;
+        }
+        return false;
     }
 }

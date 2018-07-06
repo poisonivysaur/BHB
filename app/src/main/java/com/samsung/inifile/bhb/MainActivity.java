@@ -60,9 +60,10 @@ public class MainActivity extends AppCompatActivity {
                 navItem = 1;
                 return true;
             }
-            else if (item.getItemId() == R.id.navigation_post && navItem != 2) {
+            else if (item.getItemId() == R.id.navigation_scoop && navItem != 2) {
                 resetStack();
                 navItem = 2;
+                dispatchTakePictureIntent();
                 return true;
             }
             else if (item.getItemId() == R.id.navigation_rank && navItem != 3) {
@@ -111,6 +112,8 @@ public class MainActivity extends AppCompatActivity {
             Bundle extras = data.getExtras();
             Bitmap imageBitmap = (Bitmap) extras.get("data");
             //mImageView.setImageBitmap(imageBitmap);
+        }
+    }
 
     public void resetStack() {
         int count = fragmentManager.getBackStackEntryCount();
