@@ -1,6 +1,8 @@
 package com.samsung.inifile.bhb;
 
 import android.content.Context;
+
+import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.Rect;
 import android.net.Uri;
@@ -19,10 +21,18 @@ import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+
+import com.google.android.gms.auth.api.signin.GoogleSignInClient;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
+
 import java.util.ArrayList;
 import java.util.List;
 
+
 public class ProfileFragment extends Fragment {
+    private FirebaseAuth mAuth;
 
     private RecyclerView recyclerView;
     private PostAdapter postAdapter;
@@ -49,6 +59,18 @@ public class ProfileFragment extends Fragment {
         recyclerView.setAdapter(postAdapter);
 
         preparePosts();
+
+        view.findViewById(R.id.sign_out_button).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                mAuth = FirebaseAuth.getInstance();
+                mAuth.signOut();
+
+                Intent i = new Intent(getContext(), LoginActivity.class);
+                startActivity(i);
+                getActivity().finish();
+            }
+        });
 
         return view;
     }
