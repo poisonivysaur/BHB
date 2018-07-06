@@ -1,11 +1,13 @@
 package com.samsung.inifile.bhb;
 
+import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
 import android.text.Html;
+import android.view.ContextThemeWrapper;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -21,8 +23,10 @@ public class HomeFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_home, container, false);
+
+        final Context contextThemeWrapper = new ContextThemeWrapper(getActivity(), R.style.AppTheme_NoActionBar);
+        LayoutInflater localInflater = inflater.cloneInContext(contextThemeWrapper);
+        View view = localInflater.inflate(R.layout.fragment_home, container, false);
 
         infoFab = view.findViewById(R.id.fab_info);
 
@@ -43,11 +47,11 @@ public class HomeFragment extends Fragment {
                         "PINK - Road construction/blockage" +
                         "PURPLE - Accidents" +
                         "BLUE - Rally/Parade/Procession/Festival";
-        help = help.replace("RED", "<font color='#FF0000'>RED</font><br>");
-        help = help.replace("ORANGE", "<font color='#FF5D00'>ORANGE</font><br>");
-        help = help.replace("YELLOW", "<font color='#FFF600'>YELLOW</font><br>");
-        help = help.replace("PINK", "<font color='#FFA0F3'>PINK</font><br>");
-        help = help.replace("PURPLE", "<font color='#4F0F47'>PURPLE</font><br>");
+        help = help.replace("RED - Neck & above deep flood (5ft)", "<font color='#FF0000'>RED</font> - Neck & above deep flood (5ft)<br>");
+        help = help.replace("ORANGE - Waist deep flood (3ft)", "<font color='#FF5D00'>ORANGE</font> - Waist deep flood (3ft)<br>");
+        help = help.replace("YELLOW - Gutter deep flood (1ft)", "<font color='#FFF600'>YELLOW</font> - Gutter deep flood (1ft)<br>");
+        help = help.replace("PINK - Road construction/blockage", "<font color='#FFA0F3'>PINK</font> - Road construction/blockage<br>");
+        help = help.replace("PURPLE - Accidents", "<font color='#800080'>PURPLE</font> - Accidents<br>");
         help = help.replace("BLUE", "<font color='#0000FF'>BLUE</font>");
         new AlertDialog.Builder(getContext())
                 .setTitle("LEGEND")

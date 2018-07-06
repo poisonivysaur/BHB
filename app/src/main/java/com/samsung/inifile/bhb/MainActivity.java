@@ -33,6 +33,9 @@ public class MainActivity extends AppCompatActivity {
             Log.d("Item", item + "");
             switch (item.getItemId()) {
                 case R.id.navigation_home:
+                    HomeFragment home = new HomeFragment();
+                    fragmentManager = getSupportFragmentManager();
+                    fragmentManager.beginTransaction().replace(R.id.main_fragment, home).commit();
                     return true;
                 case R.id.navigation_feed:
                     return true;
@@ -44,6 +47,9 @@ public class MainActivity extends AppCompatActivity {
                 case R.id.navigation_rank:
                     return true;
                 case R.id.navigation_profile:
+                    ProfileFragment profile = new ProfileFragment();
+                    fragmentManager = getSupportFragmentManager();
+                    fragmentManager.beginTransaction().replace(R.id.main_fragment, profile).addToBackStack(null).commit();
                     return true;
             }
             return false;
