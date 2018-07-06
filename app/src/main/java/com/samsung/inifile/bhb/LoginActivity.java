@@ -61,7 +61,7 @@ public class LoginActivity extends BaseActivity implements
         findViewById(R.id.sign_in_button).setOnClickListener(this);
 
         //findViewById(R.id.sign_out_button).setOnClickListener(this);
-        findViewById(R.id.disconnect_button).setOnClickListener(this);
+        //findViewById(R.id.disconnect_button).setOnClickListener(this);
 
 
         // [START config_signin]
@@ -86,12 +86,12 @@ public class LoginActivity extends BaseActivity implements
         // Check if user is signed in (non-null) and update UI accordingly.
         FirebaseUser currentUser = mAuth.getCurrentUser();
         updateUI(currentUser);
-
+/*
         if (GoogleSignIn.getLastSignedInAccount(getApplicationContext()) != null) {
             findViewById(R.id.disconnect_button).setEnabled(true);
         } else {
             findViewById(R.id.disconnect_button).setEnabled(false);
-        }
+        }*/
     }
     // [END on_start_check_user]
 
@@ -185,7 +185,7 @@ public class LoginActivity extends BaseActivity implements
                         public void onComplete(@NonNull Task<Void> task) {
                             updateUI(null);
                             Snackbar.make(findViewById(R.id.main_layout), "Disconnection successful.", Snackbar.LENGTH_SHORT).show();
-                            findViewById(R.id.disconnect_button).setEnabled(false);
+                            //findViewById(R.id.disconnect_button).setEnabled(false);
                         }
                     });
         }
@@ -227,8 +227,8 @@ public class LoginActivity extends BaseActivity implements
             signIn();
         } /*else if (i == R.id.sign_out_button) {
             signOut();
-        }*/ else if (i == R.id.disconnect_button) {
+        } else if (i == R.id.disconnect_button) {
             revokeAccess();
-        }
+        }*/
     }
 }
