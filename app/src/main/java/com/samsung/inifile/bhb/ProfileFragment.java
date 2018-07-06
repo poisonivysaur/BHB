@@ -4,6 +4,7 @@ import android.content.Context;
 
 import android.content.Intent;
 import android.content.res.Resources;
+import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Rect;
 import android.net.Uri;
