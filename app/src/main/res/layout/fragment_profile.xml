@@ -60,7 +60,6 @@
                     android:stepSize="0.5" />
 
             </LinearLayout>
-
         </LinearLayout>
 
         <android.support.v7.widget.RecyclerView
