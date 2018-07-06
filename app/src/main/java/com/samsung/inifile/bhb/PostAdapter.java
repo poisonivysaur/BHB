@@ -9,7 +9,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-import com.squareup.picasso.Picasso;
 import android.widget.Toast;
 
 import java.util.List;
@@ -46,8 +45,6 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.MyViewHolder> 
     public void onBindViewHolder(final MyViewHolder holder, int position) {
         Post post = postList.get(position);
         holder.thumbnail.setImageResource(R.drawable.bhb);
-
-        //Picasso.with( mContext ).load( post.getPhotourl() ).into(holder.thumbnail);
     }
 
     @Override

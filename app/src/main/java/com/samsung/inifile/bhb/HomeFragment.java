@@ -1,23 +1,25 @@
 package com.samsung.inifile.bhb;
 
-import android.content.Context;
-import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AlertDialog;
 import android.text.Html;
-import android.view.ContextThemeWrapper;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.SearchView;
 
-public class HomeFragment extends Fragment {
+import com.google.android.gms.maps.CameraUpdateFactory;
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.SupportMapFragment;
 
+public class HomeFragment extends Fragment implements OnMapReadyCallback {
+
+    private GoogleMap googleMap;
+    private SupportMapFragment mapFragment;
     private FloatingActionButton infoFab;
 
     @Override
@@ -28,14 +30,24 @@ public class HomeFragment extends Fragment {
 
         View view = inflater.inflate(R.layout.fragment_home, container, false);
 
-        infoFab = view.findViewById(R.id.fab_info);
+        mapFragment = (SupportMapFragment) getChildFragmentManager().findFragmentById(R.id.map);
 
+        if (mapFragment == null){
+            FragmentManager fm = getFragmentManager();
+            FragmentTransaction ft = fm.beginTransaction();
+            mapFragment = SupportMapFragment.newInstance();
+            ft.replace(R.id.map, mapFragment).commit();
+        }
+        mapFragment.getMapAsync(this);
+
+        infoFab = view.findViewById(R.id.fab_info);
         infoFab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 legendDialog();
             }
         });
+
 
         return view;
     }
@@ -58,5 +70,10 @@ public class HomeFragment extends Fragment {
                 .setMessage(Html.fromHtml(help))
                 .setPositiveButton("OK", null)
                 .create().show();
+    }
+
+    @Override
+    public void onMapReady(GoogleMap googleMap) {
+
     }
 }
