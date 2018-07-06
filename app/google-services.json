@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "368536315576",
+    "firebase_url": "https://inibhb.firebaseio.com",
+    "project_id": "inibhb",
+    "storage_bucket": "inibhb.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:368536315576:android:5b7f00cd17afa13b",
+        "android_client_info": {
+          "package_name": "com.samsung.inifile.bhb"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "368536315576-v2bbt469ku8m22604b2vf7itnif07b2c.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.samsung.inifile.bhb",
+            "certificate_hash": "1cad0a28396321481526b57d0a4d0d1407a3c0a4"
+          }
+        },
+        {
+          "client_id": "368536315576-vojbspmcf5io4gosc8idiktfptba8i16.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCQMld35jgHowlwtrp0eueGYp59oj7TBJk"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "368536315576-vojbspmcf5io4gosc8idiktfptba8i16.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
