@@ -18,7 +18,6 @@ import com.google.android.gms.maps.SupportMapFragment;
 
 public class HomeFragment extends Fragment implements OnMapReadyCallback {
 
-    private GoogleMap googleMap;
     private SupportMapFragment mapFragment;
     private FloatingActionButton infoFab;
 
