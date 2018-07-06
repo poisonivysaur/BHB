@@ -24,9 +24,9 @@ public class HomeFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        final Context contextThemeWrapper = new ContextThemeWrapper(getActivity(), R.style.AppTheme_NoActionBar);
-        LayoutInflater localInflater = inflater.cloneInContext(contextThemeWrapper);
-        View view = localInflater.inflate(R.layout.fragment_home, container, false);
+        getActivity().setTitle("BHB");
+
+        View view = inflater.inflate(R.layout.fragment_home, container, false);
 
         infoFab = view.findViewById(R.id.fab_info);
 

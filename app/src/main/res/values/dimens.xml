@@ -3,7 +3,6 @@
     <dimen name="activity_horizontal_margin">16dp</dimen>
     <dimen name="activity_vertical_margin">16dp</dimen>
   
-  
     <dimen name="icon_top_margin">24dp</dimen>
     <dimen name="icon_bottom_margin">24dp</dimen>
     <dimen name="title_bottom_margin">16dp</dimen>
@@ -43,4 +42,7 @@
     <!-- Height of each larger list item -->
     <dimen name="larger_list_item_height">120dp</dimen>
     <!-- Default screen margins, per the Android Design guidelines. -->
+
+    <dimen name="post">5dp</dimen>
+
 </resources>
