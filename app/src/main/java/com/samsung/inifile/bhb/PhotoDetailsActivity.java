@@ -46,9 +46,8 @@ public class PhotoDetailsActivity extends AppCompatActivity{
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if(item.getItemId() == R.id.action_save) {
-            Toast.makeText(this, "TODO", Toast.LENGTH_SHORT);
+            Toast.makeText(this, "TODO", Toast.LENGTH_SHORT).show();
         }
-        Toast.makeText(this, "TODO", Toast.LENGTH_SHORT);
         return super.onOptionsItemSelected(item);
     }
 

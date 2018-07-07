@@ -1,20 +1,16 @@
 package com.samsung.inifile.bhb;
 
+import android.app.Fragment;
 import android.content.Context;
-
 import android.content.Intent;
-import android.content.res.Resources;
 import android.graphics.Rect;
-import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.DimenRes;
 import android.support.annotation.NonNull;
-import android.support.v4.app.Fragment;
-import android.support.v7.widget.DefaultItemAnimator;
+import android.support.annotation.RequiresApi;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.TypedValue;
-import android.view.ContextThemeWrapper;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -22,26 +18,23 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
-
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 
 import java.util.ArrayList;
 import java.util.List;
 
-
-public class ProfileFragment extends Fragment {
+public class FeedFragment extends Fragment{
     private FirebaseAuth mAuth;
     private GoogleSignInClient mGoogleSignInClient;
-    
+
     private RecyclerView recyclerView;
     private PostAdapter postAdapter;
     private List<Post> postList;
 
+    @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -58,7 +51,7 @@ public class ProfileFragment extends Fragment {
 
         RecyclerView.LayoutManager mLayoutManager = new GridLayoutManager(getContext(), 3);
         recyclerView.setLayoutManager(mLayoutManager);
-        ItemOffsetDecoration itemDecoration = new ItemOffsetDecoration(getContext(), R.dimen.post);
+        ProfileFragment.ItemOffsetDecoration itemDecoration = new ProfileFragment.ItemOffsetDecoration(getContext(), R.dimen.post);
         recyclerView.addItemDecoration(itemDecoration);
         recyclerView.setAdapter(postAdapter);
 
@@ -75,7 +68,7 @@ public class ProfileFragment extends Fragment {
         postAdapter.notifyDataSetChanged();
     }
 
-    public static class ItemOffsetDecoration extends RecyclerView.ItemDecoration {
+    public class ItemOffsetDecoration extends RecyclerView.ItemDecoration {
 
         private int mItemOffset;
 

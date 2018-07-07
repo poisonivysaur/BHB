@@ -58,6 +58,9 @@ public class MainActivity extends AppCompatActivity {
             else if (item.getItemId() == R.id.navigation_feed && navItem != 1) {
                 resetStack();
                 navItem = 1;
+                ProfileFragment profile = new ProfileFragment();
+                fragmentManager = getSupportFragmentManager();
+                fragmentManager.beginTransaction().replace(R.id.main_fragment, profile).addToBackStack(null).commit();
                 return true;
             }
             else if (item.getItemId() == R.id.navigation_scoop && navItem != 2) {
