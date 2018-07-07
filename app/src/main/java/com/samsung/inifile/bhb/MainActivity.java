@@ -58,14 +58,15 @@ public class MainActivity extends AppCompatActivity {
             else if (item.getItemId() == R.id.navigation_feed && navItem != 1) {
                 resetStack();
                 navItem = 1;
+                ProfileFragment profile = new ProfileFragment();
+                fragmentManager = getSupportFragmentManager();
+                fragmentManager.beginTransaction().replace(R.id.main_fragment, profile).addToBackStack(null).commit();
                 return true;
             }
             else if (item.getItemId() == R.id.navigation_scoop && navItem != 2) {
                 resetStack();
                 navItem = 2;
-                Intent intent = new Intent(MainActivity.this, PhotoDetailsActivity.class);
-                startActivity(intent);
-                //dispatchTakePictureIntent();
+                dispatchTakePictureIntent();
                 return true;
             }
             else if (item.getItemId() == R.id.navigation_rank && navItem != 3) {
@@ -113,6 +114,9 @@ public class MainActivity extends AppCompatActivity {
         if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK) {
             Bundle extras = data.getExtras();
             Bitmap imageBitmap = (Bitmap) extras.get("data");
+            Intent intent = new Intent(MainActivity.this, PhotoDetailsActivity.class);
+            intent.putExtra(BundleKeys.IMAGE_BITMAP_KEY, imageBitmap);
+            startActivity(intent);
             //mImageView.setImageBitmap(imageBitmap);
         }
     }
