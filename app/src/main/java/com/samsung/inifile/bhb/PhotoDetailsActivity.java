@@ -2,18 +2,25 @@ package com.samsung.inifile.bhb;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Base64;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 
 public class PhotoDetailsActivity extends AppCompatActivity{
 
     private EditText caption;
+    private ImageView image;
+    private TextView location;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -21,6 +28,13 @@ public class PhotoDetailsActivity extends AppCompatActivity{
         setContentView(R.layout.activity_photo_details);
 
         caption = (EditText) findViewById(R.id.caption_input);
+        image = (ImageView) findViewById(R.id.image);
+        location = (TextView) findViewById(R.id.location);
+
+        //String strBitmap = getIntent().getExtras().getString(BundleKeys.IMAGE_BITMAP_KEY, "asdf");
+        Bundle extras = getIntent().getExtras();
+        Bitmap imageBitmap = (Bitmap) extras.get(BundleKeys.IMAGE_BITMAP_KEY);
+        image.setImageBitmap(imageBitmap);
     }
 
     @Override
@@ -32,9 +46,8 @@ public class PhotoDetailsActivity extends AppCompatActivity{
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if(item.getItemId() == R.id.action_save) {
-            Toast.makeText(this, "TODO", Toast.LENGTH_SHORT);
+            Toast.makeText(this, "TODO", Toast.LENGTH_SHORT).show();
         }
-        Toast.makeText(this, "TODO", Toast.LENGTH_SHORT);
         return super.onOptionsItemSelected(item);
     }
 
