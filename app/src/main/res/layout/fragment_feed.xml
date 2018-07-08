@@ -1,12 +1,38 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-
-<android.support.v7.widget.RecyclerView xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/feed_recycleview"
-    android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:fillViewport="true"
-    tools:context=".ProfileFragment"
-    tools:listitem="@layout/feed_post_item_layout" />
+    android:layout_width="match_parent"
+    android:orientation="vertical"
+    android:paddingTop="@dimen/nav_header_vertical_spacing">
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/feed_recycleview"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fillViewport="true"
+        tools:context=".FeedFragment"
+        tools:listitem="@layout/feed_post_item_layout" />
+
+    <!-- Empty view is only visible when the list has no items. -->
+    <RelativeLayout
+        android:id="@+id/empty_view"
+        android:layout_centerInParent="true"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/padd_10"
+        android:layout_width="match_parent">
+
+        <TextView
+            android:fontFamily="sans-serif-medium"
+            android:id="@+id/empty_title_text"
+            android:layout_centerHorizontal="true"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:paddingTop="16dp"
+            android:text="No posts to show :("
+            android:textAppearance="?android:textAppearanceMedium" />
+    </RelativeLayout>
+</LinearLayout>
