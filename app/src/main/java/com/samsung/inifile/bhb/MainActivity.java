@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.Color;
+import android.location.Location;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.MediaStore;
@@ -33,6 +34,13 @@ import android.widget.Toast;
 import android.widget.SearchView;
 import android.widget.Toolbar;
 
+import com.google.android.gms.location.FusedLocationProviderClient;
+import com.google.android.gms.location.LocationServices;
+import com.google.android.gms.maps.CameraUpdateFactory;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.miguelcatalan.materialsearchview.MaterialSearchView;
 
 import java.util.ArrayList;
@@ -193,5 +201,9 @@ public class MainActivity extends AppCompatActivity {
         for(int i = 0; i < count; ++i) {
             fragmentManager.popBackStackImmediate();
         }
+    }
+
+    public boolean getLocationPermissionsGranted() {
+        return mLocationPermissionsGranted;
     }
 }
