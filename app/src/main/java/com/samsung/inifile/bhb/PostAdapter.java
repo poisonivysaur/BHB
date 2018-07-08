@@ -17,13 +17,19 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.MyViewHolder> 
 
     private Context mContext;
     private List<Post> postList;
+    private boolean isFeed;
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
         public ImageView thumbnail;
+        public TextView caption;
 
         public MyViewHolder(View view) {
             super(view);
-            thumbnail = (ImageView) view.findViewById(R.id.post_pic);
+            thumbnail = (ImageView) view.findViewById(R.id.feed_pic);
+
+            if (isFeed){
+                caption = (TextView) view.findViewById(R.id.caption);
+            }
         }
     }
 
@@ -31,12 +37,27 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.MyViewHolder> 
     public PostAdapter(Context mContext, List<Post> postList) {
         this.mContext = mContext;
         this.postList = postList;
+        isFeed = false;
+    }
+
+    public PostAdapter(Context mContext, List<Post> postList, boolean forFeed) {
+        this.mContext = mContext;
+        this.postList = postList;
+        isFeed = true;
     }
 
     @Override
     public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View itemView = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.post_item_layout, parent, false);
+        View itemView;
+
+        if(isFeed){
+            itemView = LayoutInflater.from(parent.getContext())
+                    .inflate(R.layout.feed_post_item_layout, parent, false);
+        }
+        else {
+            itemView = LayoutInflater.from(parent.getContext())
+                    .inflate(R.layout.post_item_layout, parent, false);
+        }
 
         return new MyViewHolder(itemView);
     }
@@ -45,6 +66,10 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.MyViewHolder> 
     public void onBindViewHolder(final MyViewHolder holder, int position) {
         Post post = postList.get(position);
         holder.thumbnail.setImageResource(R.drawable.bhb);
+
+        if(isFeed){
+            holder.caption.setText(R.string.sample_caption);
+        }
     }
 
     @Override

@@ -1,10 +1,22 @@
 package com.samsung.inifile.bhb;
 
+import android.graphics.Bitmap;
+
 public class Post {
 
-    private String id, photourl;
+    private String id, photourl, caption;
+    private Bitmap imaage;
 
     public Post() {}
+
+    public Post(String caption){
+        this.caption = caption;
+    }
+
+    public Post(String caption, Bitmap bitmap){
+        this.caption = caption;
+        this.imaage = bitmap;
+    }
 
     public String getId() {
         return id;
