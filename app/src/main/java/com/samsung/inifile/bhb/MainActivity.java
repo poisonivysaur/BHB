@@ -133,6 +133,12 @@ public class MainActivity extends AppCompatActivity {
     }
 
     @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        outState.putString("WORKAROUND_FOR_BUG_19917_KEY", "WORKAROUND_FOR_BUG_19917_VALUE");
+        super.onSaveInstanceState(outState);
+    }
+
+    @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK) {
             Bundle extras = data.getExtras();
@@ -179,7 +185,7 @@ public class MainActivity extends AppCompatActivity {
         HomeFragment home = new HomeFragment();
         fragmentManager = getSupportFragmentManager();
         resetStack();
-        fragmentManager.beginTransaction().replace(R.id.main_fragment, home).commit();
+        fragmentManager.beginTransaction().replace(R.id.main_fragment, home).commitAllowingStateLoss();
     }
 
     public void resetStack() {
