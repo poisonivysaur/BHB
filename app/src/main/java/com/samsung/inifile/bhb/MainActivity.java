@@ -207,8 +207,4 @@ public class MainActivity extends AppCompatActivity {
     public boolean getLocationPermissionsGranted() {
         return mLocationPermissionsGranted;
     }
-
-    public HomeFragment getHomeFragment() {
-        return home;
-    }
 }
