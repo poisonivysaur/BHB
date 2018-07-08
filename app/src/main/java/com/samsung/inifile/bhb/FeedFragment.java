@@ -1,6 +1,6 @@
 package com.samsung.inifile.bhb;
 
-import android.app.Fragment;
+
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Rect;
@@ -9,7 +9,9 @@ import android.os.Bundle;
 import android.support.annotation.DimenRes;
 import android.support.annotation.NonNull;
 import android.support.annotation.RequiresApi;
+import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -26,30 +28,33 @@ import com.google.firebase.auth.FirebaseAuth;
 import java.util.ArrayList;
 import java.util.List;
 
-public class FeedFragment extends Fragment{
+
+public class FeedFragment extends Fragment {
     private FirebaseAuth mAuth;
     private GoogleSignInClient mGoogleSignInClient;
 
     private RecyclerView recyclerView;
     private PostAdapter postAdapter;
-    private List<Post> postList;
+    private static List<Post> postList;
+
+    private final boolean FOR_FEED = true;
 
     @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        getActivity().setTitle("Profile");
+        getActivity().setTitle("Feed");
         setHasOptionsMenu(true);
 
-        View view = inflater.inflate(R.layout.fragment_profile, container, false);
+        View view = inflater.inflate(R.layout.fragment_feed, container, false);
 
-        recyclerView = view.findViewById(R.id.profile_recycleview);
+        recyclerView = view.findViewById(R.id.feed_recycleview);
 
         postList = new ArrayList<>();
-        postAdapter = new PostAdapter(getContext(), postList);
+        postAdapter = new PostAdapter(getContext(), postList, FOR_FEED);
 
-        RecyclerView.LayoutManager mLayoutManager = new GridLayoutManager(getContext(), 3);
+        RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getContext());
         recyclerView.setLayoutManager(mLayoutManager);
         ProfileFragment.ItemOffsetDecoration itemDecoration = new ProfileFragment.ItemOffsetDecoration(getContext(), R.dimen.post);
         recyclerView.addItemDecoration(itemDecoration);
@@ -62,7 +67,7 @@ public class FeedFragment extends Fragment{
 
     public void preparePosts() {
         for (int ctr = 0; ctr < 20; ctr ++) {
-            postList.add(new Post());
+            postList.add(new Post(getString(R.string.sample_caption)));
         }
 
         postAdapter.notifyDataSetChanged();
