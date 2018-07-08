@@ -1,25 +1,22 @@
 package com.samsung.inifile.bhb;
 
-import android.*;
-import android.content.DialogInterface;
 import android.content.pm.PackageManager;
+import android.graphics.Color;
+import android.graphics.Point;
 import android.location.Location;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
-import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
-import android.text.Html;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.WindowManager;
 import android.widget.Toast;
 
 import com.google.android.gms.location.FusedLocationProviderClient;
@@ -28,12 +25,26 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.LatLngBounds;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.android.gms.maps.model.PolylineOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+
+import org.json.JSONObject;
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 
 public class HomeFragment extends Fragment implements OnMapReadyCallback {
 
@@ -61,6 +72,7 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback {
         mapFragment.getMapAsync(this);
 
         infoFab = view.findViewById(R.id.fab_info);
+        infoFab.setVisibility(View.INVISIBLE);
         infoFab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -87,9 +99,9 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback {
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
-
         if (((MainActivity) getActivity()).getLocationPermissionsGranted()) {
             getDeviceLocation();
+            //highlightRoute();
 
             if (ActivityCompat.checkSelfPermission(getContext(), android.Manifest.permission.ACCESS_FINE_LOCATION)
                     != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(getContext(),
@@ -98,7 +110,6 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback {
             }
             mMap.setMyLocationEnabled(true);
             mMap.getUiSettings().setMyLocationButtonEnabled(false);
-
         }
     }
 
