@@ -30,7 +30,7 @@ public class Post {
         this.profpic = profpic;
     }
 
-    private Bitmap imaage, profpic;
+    private Bitmap image, profpic;
 
     public Post() {}
 
@@ -40,7 +40,7 @@ public class Post {
 
     public Post(String caption, Bitmap bitmap){
         this.caption = caption;
-        this.imaage = bitmap;
+        this.image = bitmap;
     }
 
     public String getId() {
@@ -73,10 +73,10 @@ public class Post {
     }
 
     public Bitmap getImaage() {
-        return imaage;
+        return image;
     }
 
     public void setImaage(Bitmap imaage) {
-        this.imaage = imaage;
+        this.image = imaage;
     }
 }
