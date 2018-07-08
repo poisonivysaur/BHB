@@ -59,6 +59,8 @@ public class PhotoDetailsActivity extends AppCompatActivity{
         image = (ImageView) findViewById(R.id.image);
         location = (TextView) findViewById(R.id.location);
 
+        location.setText(setLocationUI());
+
         //String strBitmap = getIntent().getExtras().getString(BundleKeys.IMAGE_BITMAP_KEY, "asdf");
         Bundle extras = getIntent().getExtras();
         imageBitmap = (Bitmap) extras.get(BundleKeys.IMAGE_BITMAP_KEY);
@@ -99,61 +101,9 @@ public class PhotoDetailsActivity extends AppCompatActivity{
             HomeFragment home = new HomeFragment();
             mMap = home.getMap();
 */
-            mFusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this);
 
-            try{
-                //if(getApplicationContext().getLocationPermissionsGranted()){
-
-                    final Task location = mFusedLocationProviderClient.getLastLocation();
-                    location.addOnCompleteListener(new OnCompleteListener() {
-                        @Override
-                        public void onComplete(@NonNull Task task) {
-                            if(task.isSuccessful() && task.getResult() != null){
-                                //Log.d(TAG, "onComplete: found location!");
-                                Location currentLocation = (Location) task.getResult();
-
-                                Geocoder geocoder;
-                                List<Address> addresses = null;
-                                geocoder = new Geocoder(PhotoDetailsActivity.this, Locale.getDefault());
-
-                                try {
-                                    addresses = geocoder.getFromLocation(currentLocation.getLatitude(), currentLocation.getLongitude(), 1); // Here 1 represent max location result to returned, by documents it recommended 1 to 5
-                                    Log.d(TAG, "onComplete: " + currentLocation.getLatitude() + " " + currentLocation.getLongitude());
-                                } catch (IOException e) {
-                                    e.printStackTrace();
-                                }
-
-                                String address = addresses.get(0).getAddressLine(0); // If any additional address line present than only, check with max available address lines by getMaxAddressLineIndex()
-                                String city = addresses.get(0).getLocality();
-                                String state = addresses.get(0).getAdminArea();
-                                String country = addresses.get(0).getCountryName();
-                                String postalCode = addresses.get(0).getPostalCode();
-                                String knownName = addresses.get(0).getFeatureName(); // Only if available else return NULL
-
-                                DummyDB.postList.add(new Post(caption.getText().toString() + "\n" + address, imageBitmap));
-
-                                /*moveCamera(new LatLng(currentLocation.getLatitude(), currentLocation.getLongitude()),
-                                        DEFAULT_ZOOM);*/
-
-                                moveCamera(new LatLng(14.564638, 120.993175),
-                                        DEFAULT_ZOOM);
-
-                            }else{
-                                Log.d(TAG, "onComplete: current location is null");
-                                Toast.makeText(PhotoDetailsActivity.this, "unable to get current location", Toast.LENGTH_SHORT).show();
-                            }
-                        }
-                    });
-
-
-
-                    Toast.makeText(this, "Posted successfully!", Toast.LENGTH_SHORT).show();
-                //}
-            }catch (SecurityException e){
-                Log.e(TAG, "getDeviceLocation: SecurityException: " + e.getMessage() );
-            }
-
-
+            DummyDB.postList.add(new Post(caption.getText().toString() + "\n" + location.getText().toString(), imageBitmap));
+            Toast.makeText(this, "Posted successfully!", Toast.LENGTH_SHORT).show();
             finish();
         }
         return super.onOptionsItemSelected(item);
@@ -218,5 +168,62 @@ public class PhotoDetailsActivity extends AppCompatActivity{
             //Log.e(TAG, "moveCamera: NullPointerException: " + e.getMessage() );
         }
 
+    }
+
+    private String setLocationUI(){
+        mFusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this);
+        final String[] address = {"no address"};
+
+        try{
+            //if(getApplicationContext().getLocationPermissionsGranted()){
+
+            final Task location = mFusedLocationProviderClient.getLastLocation();
+            location.addOnCompleteListener(new OnCompleteListener() {
+                @Override
+                public void onComplete(@NonNull Task task) {
+                    if(task.isSuccessful() && task.getResult() != null){
+                        //Log.d(TAG, "onComplete: found location!");
+                        Location currentLocation = (Location) task.getResult();
+
+                        Geocoder geocoder;
+                        List<Address> addresses = null;
+                        geocoder = new Geocoder(PhotoDetailsActivity.this, Locale.getDefault());
+
+                        try {
+                            addresses = geocoder.getFromLocation(currentLocation.getLatitude(), currentLocation.getLongitude(), 1); // Here 1 represent max location result to returned, by documents it recommended 1 to 5
+                            Log.d(TAG, "onComplete: " + currentLocation.getLatitude() + " " + currentLocation.getLongitude());
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+
+                        address[0] = addresses.get(0).getAddressLine(0); // If any additional address line present than only, check with max available address lines by getMaxAddressLineIndex()
+                        String city = addresses.get(0).getLocality();
+                        String state = addresses.get(0).getAdminArea();
+                        String country = addresses.get(0).getCountryName();
+                        String postalCode = addresses.get(0).getPostalCode();
+                        String knownName = addresses.get(0).getFeatureName(); // Only if available else return NULL
+
+                        this.location.setText();
+                        //DummyDB.postList.add(new Post(caption.getText().toString() + "\n" + address, imageBitmap));
+
+                                /*moveCamera(new LatLng(currentLocation.getLatitude(), currentLocation.getLongitude()),
+                                        DEFAULT_ZOOM);*/
+                        //Toast.makeText(getApplicationContext(), "ADDRESS: "+address[0], Toast.LENGTH_SHORT).show();
+                        moveCamera(new LatLng(14.564638, 120.993175),
+                                DEFAULT_ZOOM);
+
+                    }else{
+                        Log.d(TAG, "onComplete: current location is null");
+                        Toast.makeText(PhotoDetailsActivity.this, "unable to get current location", Toast.LENGTH_SHORT).show();
+                    }
+                }
+            });
+
+            //}
+        }catch (SecurityException e){
+            Log.e(TAG, "getDeviceLocation: SecurityException: " + e.getMessage() );
+        }
+        Toast.makeText(getApplicationContext(), "ADDRESS: "+address[0], Toast.LENGTH_SHORT).show();
+        return address[0];
     }
 }
