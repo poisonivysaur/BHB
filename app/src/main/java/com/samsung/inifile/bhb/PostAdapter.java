@@ -25,10 +25,12 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.MyViewHolder> 
 
         public MyViewHolder(View view) {
             super(view);
-            thumbnail = (ImageView) view.findViewById(R.id.feed_pic);
-
             if (isFeed){
+                thumbnail = (ImageView) view.findViewById(R.id.feed_pic);
                 caption = (TextView) view.findViewById(R.id.caption);
+            }
+            else {
+                thumbnail = (ImageView) view.findViewById(R.id.post_pic);
             }
         }
     }
