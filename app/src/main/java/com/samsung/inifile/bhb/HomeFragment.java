@@ -28,6 +28,7 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.LatLngBounds;
 import com.google.android.gms.maps.model.Marker;
@@ -99,6 +100,9 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback {
             mMap.setMyLocationEnabled(true);
             mMap.getUiSettings().setMyLocationButtonEnabled(false);
 
+            for (int i = 0; i < DummyDB.markers.size(); i ++) {
+                mMap.addMarker(DummyDB.markers.get(i));
+            }
         }
     }
 
@@ -136,6 +140,7 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback {
             Log.e(TAG, "getDeviceLocation: SecurityException: " + e.getMessage() );
         }
     }
+
     private Marker mMarker;
     private void moveCamera(LatLng latLng, float zoom){
         Log.d(TAG, "moveCamera: moving the camera to: lat: " + latLng.latitude + ", lng: " + latLng.longitude );
@@ -147,12 +152,17 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback {
 
                 MarkerOptions options = new MarkerOptions()
                         .position(latLng)
-                        .title("TESTING 123");
+                        .title("TESTING 123")
+                        .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN));
                 mMarker = mMap.addMarker(options);
 
             }catch (NullPointerException e){
                 Log.e(TAG, "moveCamera: NullPointerException: " + e.getMessage() );
             }
 
+    }
+
+    public GoogleMap getMap() {
+        return mMap;
     }
 }
