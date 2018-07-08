@@ -19,6 +19,9 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
+import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -46,6 +49,10 @@ public class PhotoDetailsActivity extends AppCompatActivity{
     private EditText caption;
     private ImageView image;
     private TextView location;
+
+    private Switch blockage, minorAccident, majorAccident, rally;
+    private RadioGroup floodLevel;
+
     Bitmap imageBitmap;
 
     private static final String TAG = "PhotoDetailsActivity";
@@ -58,6 +65,13 @@ public class PhotoDetailsActivity extends AppCompatActivity{
         caption = (EditText) findViewById(R.id.caption_input);
         image = (ImageView) findViewById(R.id.image);
         location = (TextView) findViewById(R.id.location);
+
+        blockage = findViewById(R.id.blockage);
+        minorAccident = findViewById(R.id.minor_accidents);
+        majorAccident = findViewById(R.id.major_accidents);
+        rally = findViewById(R.id.rally);
+
+        floodLevel = findViewById(R.id.flood_level);
 
         //String strBitmap = getIntent().getExtras().getString(BundleKeys.IMAGE_BITMAP_KEY, "asdf");
         Bundle extras = getIntent().getExtras();
@@ -78,27 +92,6 @@ public class PhotoDetailsActivity extends AppCompatActivity{
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if(item.getItemId() == R.id.action_save) {
-/*
-            FragmentManager fm = getChildFragmentManager();
-
-            //if you added fragment via layout xml
-            MapFragment fragment = (SupportMapFragment) getChildFragmentManager().findFragmentById(R.id.map);
-            Log.d(TAG, "onOptionsItemSelected: " + fragment);
-
-            mMap = fragment;
-
-            MapFragment mapFragment = (MapFragment) getFragmentManager().findFragmentById(R.id.map);
-            mapFragment.getMapAsync(PhotoDetailsActivity.this);
-            GoogleMap mMap = ((SupportMapFragment) getChildFragmentManager().findFragmentById(R.id.map)).getMap();
-
-
-            HomeFragment home = getApplicationContext().getApplicationContext();
-            mMap = home.getMap();
-*/
-/*
-            HomeFragment home = new HomeFragment();
-            mMap = home.getMap();
-*/
             mFusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this);
 
             try{
@@ -209,9 +202,36 @@ public class PhotoDetailsActivity extends AppCompatActivity{
         try{
 
             MarkerOptions options = new MarkerOptions()
-                    .position(latLng)
-                    .title("TESTING 456")
-                    .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE));
+                    .position(latLng);
+
+            if (blockage.isChecked()) {
+                options.title(blockage.getText().toString()).icon(BitmapDescriptorFactory.defaultMarker(340));
+            } else if (minorAccident.isChecked()) {
+                options.title(minorAccident.getText().toString()).icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_VIOLET));
+            } else if (majorAccident.isChecked()) {
+                options.title(majorAccident.getText().toString()).icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_VIOLET));
+            } else if (rally.isChecked()) {
+                options.title(rally.getText().toString()).icon(BitmapDescriptorFactory.defaultMarker(231));
+            } else {
+                int selectedId = floodLevel.getCheckedRadioButtonId();
+
+                RadioButton level = findViewById(selectedId);
+                options.title(level.getText().toString());
+
+                switch (selectedId) {
+                    case 0: options.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED));
+                            break;
+                    case 1: options.icon(BitmapDescriptorFactory.defaultMarker(11));
+                            break;
+                    case 2: options.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_ORANGE));
+                            break;
+                    case 3: options.icon(BitmapDescriptorFactory.defaultMarker(15));
+                            break;
+                    case 4: options.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_YELLOW));
+                            break;
+                }
+            }
+
             DummyDB.markers.add(options);
 
         }catch (NullPointerException e){
