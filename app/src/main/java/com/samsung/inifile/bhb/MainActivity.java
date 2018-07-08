@@ -50,6 +50,7 @@ public class MainActivity extends AppCompatActivity {
 
     private FragmentManager fragmentManager;
     private int navItem;
+    private HomeFragment home;
 
     private static final int REQUEST_IMAGE_CAPTURE = 1;
 
@@ -70,7 +71,7 @@ public class MainActivity extends AppCompatActivity {
             if (item.getItemId() == R.id.navigation_home && navItem != 0) {
                 resetStack();
                 navItem = 0;
-                HomeFragment home = new HomeFragment();
+                home = new HomeFragment();
                 fragmentManager = getSupportFragmentManager();
                 fragmentManager.beginTransaction().replace(R.id.main_fragment, home).commit();
                 return true;

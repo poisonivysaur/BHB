@@ -110,6 +110,13 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback {
             }
             mMap.setMyLocationEnabled(true);
             mMap.getUiSettings().setMyLocationButtonEnabled(false);
+<<<<<<< HEAD
+=======
+
+            for (int i = 0; i < DummyDB.markers.size(); i ++) {
+                mMap.addMarker(DummyDB.markers.get(i));
+            }
+>>>>>>> 35226f0929af78239fa0bcc0a898c1402cd8f20f
         }
     }
 
@@ -147,6 +154,7 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback {
             Log.e(TAG, "getDeviceLocation: SecurityException: " + e.getMessage() );
         }
     }
+
     private Marker mMarker;
     private void moveCamera(LatLng latLng, float zoom){
         Log.d(TAG, "moveCamera: moving the camera to: lat: " + latLng.latitude + ", lng: " + latLng.longitude );
@@ -158,12 +166,17 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback {
 
                 MarkerOptions options = new MarkerOptions()
                         .position(latLng)
-                        .title("TESTING 123");
+                        .title("TESTING 123")
+                        .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN));
                 mMarker = mMap.addMarker(options);
 
             }catch (NullPointerException e){
                 Log.e(TAG, "moveCamera: NullPointerException: " + e.getMessage() );
             }
 
+    }
+
+    public GoogleMap getMap() {
+        return mMap;
     }
 }
