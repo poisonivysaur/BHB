@@ -67,7 +67,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.MyViewHolder> 
         Post post = postList.get(position);
 
         if(isFeed){
-            holder.caption.setText(holder.caption.getText());
+            holder.caption.setText(post.getCaption());
             if(post.getImaage() != null)
                 holder.thumbnail.setImageBitmap(post.getImaage());
         }
