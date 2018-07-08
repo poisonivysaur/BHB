@@ -36,6 +36,7 @@ public class FeedFragment extends Fragment {
     private GoogleSignInClient mGoogleSignInClient;
 
     private RecyclerView recyclerView;
+    private View mEmptyStateTextView;
     private PostAdapter postAdapter;
 
     private final boolean FOR_FEED = true;
@@ -52,6 +53,10 @@ public class FeedFragment extends Fragment {
 
         recyclerView = view.findViewById(R.id.feed_recycleview);
 
+        // set visibility of the empty view to be GONE initially
+        mEmptyStateTextView = (View) view.findViewById(R.id.empty_view);
+        mEmptyStateTextView.setVisibility(View.GONE);
+
         postAdapter = new PostAdapter(getContext(), DummyDB.postList, FOR_FEED);
 
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getContext());
@@ -59,9 +64,14 @@ public class FeedFragment extends Fragment {
         recyclerView.addItemDecoration(new DividerItemDecoration(getContext(), LinearLayoutManager.VERTICAL));
         recyclerView.setAdapter(postAdapter);
 
-        Toast.makeText(getContext(), "in feed fragment " + DummyDB.postList.size(), Toast.LENGTH_SHORT).show();
+        //Toast.makeText(getContext(), "in feed fragment " + DummyDB.postList.size(), Toast.LENGTH_SHORT).show();
 
         //preparePosts();
+
+        if(DummyDB.postList.isEmpty()) {
+            recyclerView.setVisibility(View.GONE);
+            mEmptyStateTextView.setVisibility(View.VISIBLE);
+        }
         postAdapter.notifyDataSetChanged();
 
         return view;

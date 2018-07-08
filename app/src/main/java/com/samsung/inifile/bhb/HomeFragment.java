@@ -1,7 +1,9 @@
 package com.samsung.inifile.bhb;
 
+import android.*;
 import android.content.DialogInterface;
 import android.content.pm.PackageManager;
+import android.location.Location;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -17,13 +19,21 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
+import android.widget.Toast;
 
+import com.google.android.gms.location.FusedLocationProviderClient;
+import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.LatLngBounds;
+import com.google.android.gms.maps.model.Marker;
+import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 
 public class HomeFragment extends Fragment implements OnMapReadyCallback {
 
@@ -72,8 +82,77 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback {
         alertadd.show();
     }
 
+    private GoogleMap mMap;
+
     @Override
     public void onMapReady(GoogleMap googleMap) {
+        mMap = googleMap;
+
+        if (((MainActivity) getActivity()).getLocationPermissionsGranted()) {
+            getDeviceLocation();
+
+            if (ActivityCompat.checkSelfPermission(getContext(), android.Manifest.permission.ACCESS_FINE_LOCATION)
+                    != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(getContext(),
+                    android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+                return;
+            }
+            mMap.setMyLocationEnabled(true);
+            mMap.getUiSettings().setMyLocationButtonEnabled(false);
+
+        }
+    }
+
+    //CURRENT LOCATION
+    private static final float DEFAULT_ZOOM = 15f;
+    private FusedLocationProviderClient mFusedLocationProviderClient;
+
+    private void getDeviceLocation(){
+        Log.d(TAG, "getDeviceLocation: getting the devices current location");
+
+        mFusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(getActivity());
+
+        try{
+            if(((MainActivity) getActivity()).getLocationPermissionsGranted()){
+
+                final Task location = mFusedLocationProviderClient.getLastLocation();
+                location.addOnCompleteListener(new OnCompleteListener() {
+                    @Override
+                    public void onComplete(@NonNull Task task) {
+                        if(task.isSuccessful() && task.getResult() != null){
+                            Log.d(TAG, "onComplete: found location!");
+                            Location currentLocation = (Location) task.getResult();
+
+                            moveCamera(new LatLng(currentLocation.getLatitude(), currentLocation.getLongitude()),
+                                    DEFAULT_ZOOM);
+
+                        }else{
+                            Log.d(TAG, "onComplete: current location is null");
+                            Toast.makeText(getContext(), "unable to get current location", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                });
+            }
+        }catch (SecurityException e){
+            Log.e(TAG, "getDeviceLocation: SecurityException: " + e.getMessage() );
+        }
+    }
+    private Marker mMarker;
+    private void moveCamera(LatLng latLng, float zoom){
+        Log.d(TAG, "moveCamera: moving the camera to: lat: " + latLng.latitude + ", lng: " + latLng.longitude );
+        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, zoom));
+
+        //mMap.clear();
+
+            try{
+
+                MarkerOptions options = new MarkerOptions()
+                        .position(latLng)
+                        .title("TESTING 123");
+                mMarker = mMap.addMarker(options);
+
+            }catch (NullPointerException e){
+                Log.e(TAG, "moveCamera: NullPointerException: " + e.getMessage() );
+            }
 
     }
 }

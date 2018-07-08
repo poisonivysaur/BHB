@@ -47,8 +47,8 @@ public class PhotoDetailsActivity extends AppCompatActivity{
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if(item.getItemId() == R.id.action_save) {
-            //Toast.makeText(this, "TODO", Toast.LENGTH_SHORT).show();
             DummyDB.postList.add(new Post(caption.getText().toString(), imageBitmap));
+            Toast.makeText(this, "Posted successfully!", Toast.LENGTH_SHORT).show();
             finish();
         }
         return super.onOptionsItemSelected(item);
