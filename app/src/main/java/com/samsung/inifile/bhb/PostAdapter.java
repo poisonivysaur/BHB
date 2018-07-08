@@ -65,10 +65,11 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.MyViewHolder> 
     @Override
     public void onBindViewHolder(final MyViewHolder holder, int position) {
         Post post = postList.get(position);
-        holder.thumbnail.setImageResource(R.drawable.bhb);
 
         if(isFeed){
             holder.caption.setText(R.string.sample_caption);
+            if(post.getImaage() != null)
+                holder.thumbnail.setImageBitmap(post.getImaage());
         }
     }
 
