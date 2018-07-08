@@ -109,9 +109,17 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback {
             }
             mMap.setMyLocationEnabled(true);
             mMap.getUiSettings().setMyLocationButtonEnabled(false);
+<<<<<<< HEAD
             for (int i = 0; i < DummyDB.markers.size(); i ++) {
                 mMap.addMarker(DummyDB.markers.get(i));
             }
+=======
+
+            for (int i = 0; i < DummyDB.markers.size(); i ++) {
+                mMap.addMarker(DummyDB.markers.get(i));
+            }
+
+>>>>>>> 7e20ed92cf59ccbe619edb41f40b3c109e3c330d
         }
     }
 
@@ -161,7 +169,7 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback {
 
                 MarkerOptions options = new MarkerOptions()
                         .position(latLng)
-                        .title("TESTING 123")
+                        .title("YOU ARE HERE")
                         .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN));
                 mMarker = mMap.addMarker(options);
 
