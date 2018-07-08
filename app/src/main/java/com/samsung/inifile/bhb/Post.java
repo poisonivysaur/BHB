@@ -38,4 +38,20 @@ public class Post {
         this.id = id;
         this.photourl = photourl;
     }
+
+    public String getCaption() {
+        return caption;
+    }
+
+    public void setCaption(String caption) {
+        this.caption = caption;
+    }
+
+    public Bitmap getImaage() {
+        return imaage;
+    }
+
+    public void setImaage(Bitmap imaage) {
+        this.imaage = imaage;
+    }
 }
