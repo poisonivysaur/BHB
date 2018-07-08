@@ -7,6 +7,7 @@ import android.graphics.BitmapFactory;
 import android.location.Address;
 import android.location.Geocoder;
 import android.location.Location;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -25,6 +26,8 @@ import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.auth.api.signin.GoogleSignIn;
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -87,6 +90,9 @@ public class PhotoDetailsActivity extends AppCompatActivity{
 
     private static final float DEFAULT_ZOOM = 15f;
     private FusedLocationProviderClient mFusedLocationProviderClient;
+    //google account variables
+    String personName;
+    Uri personPhoto;
     //private GoogleMap mMap;
 
     @Override
@@ -123,7 +129,14 @@ public class PhotoDetailsActivity extends AppCompatActivity{
                                 String postalCode = addresses.get(0).getPostalCode();
                                 String knownName = addresses.get(0).getFeatureName(); // Only if available else return NULL
 
-                                DummyDB.postList.add(new Post(caption.getText().toString() + "\n" + address, imageBitmap));
+                                //Google account details
+                                GoogleSignInAccount acct = GoogleSignIn.getLastSignedInAccount(getApplicationContext());
+                                if (acct != null) {
+                                    personName = acct.getDisplayName();
+                                    personPhoto = acct.getPhotoUrl();
+                                }
+
+                                DummyDB.postList.add(new Post(caption.getText().toString(), imageBitmap, address, personName));
 
                                 moveCamera(new LatLng(currentLocation.getLatitude(), currentLocation.getLongitude()),
                                         DEFAULT_ZOOM);

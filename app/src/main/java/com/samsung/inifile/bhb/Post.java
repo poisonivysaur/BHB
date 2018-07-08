@@ -1,10 +1,11 @@
 package com.samsung.inifile.bhb;
 
 import android.graphics.Bitmap;
+import android.location.Location;
 
 public class Post {
 
-    private String id, photourl, caption, name, rating;
+    private String id, photourl, caption, name, rating, loc;
 
     public String getName() {
         return name;
@@ -43,6 +44,13 @@ public class Post {
         this.image = bitmap;
     }
 
+    public Post(String caption, Bitmap bitmap, String loc, String name){
+        this.caption = caption;
+        this.image = bitmap;
+        this.loc = loc;
+        this.name = name;
+    }
+
     public String getId() {
         return id;
     }
@@ -79,4 +87,6 @@ public class Post {
     public void setImaage(Bitmap imaage) {
         this.image = imaage;
     }
+
+    public String getAddress() { return loc; }
 }

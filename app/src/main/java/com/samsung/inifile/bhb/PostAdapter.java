@@ -21,13 +21,15 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.MyViewHolder> 
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
         public ImageView thumbnail;
-        public TextView caption;
+        public TextView caption, location, profileName;
 
         public MyViewHolder(View view) {
             super(view);
             if (isFeed){
                 thumbnail = (ImageView) view.findViewById(R.id.feed_pic);
                 caption = (TextView) view.findViewById(R.id.caption);
+                location = (TextView) view.findViewById(R.id.location);
+                profileName = (TextView) view.findViewById(R.id.profile_name);
             }
             else {
                 thumbnail = (ImageView) view.findViewById(R.id.post_pic);
@@ -70,6 +72,9 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.MyViewHolder> 
 
         if(isFeed){
             holder.caption.setText(post.getCaption());
+            holder.location.setText(post.getAddress());
+            holder.profileName.setText(post.getName());
+
             if(post.getImaage() != null)
                 holder.thumbnail.setImageBitmap(post.getImaage());
         }
