@@ -21,6 +21,7 @@ public class PhotoDetailsActivity extends AppCompatActivity{
     private EditText caption;
     private ImageView image;
     private TextView location;
+    Bitmap imageBitmap;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -33,7 +34,7 @@ public class PhotoDetailsActivity extends AppCompatActivity{
 
         //String strBitmap = getIntent().getExtras().getString(BundleKeys.IMAGE_BITMAP_KEY, "asdf");
         Bundle extras = getIntent().getExtras();
-        Bitmap imageBitmap = (Bitmap) extras.get(BundleKeys.IMAGE_BITMAP_KEY);
+        imageBitmap = (Bitmap) extras.get(BundleKeys.IMAGE_BITMAP_KEY);
         image.setImageBitmap(imageBitmap);
     }
 
@@ -46,7 +47,9 @@ public class PhotoDetailsActivity extends AppCompatActivity{
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if(item.getItemId() == R.id.action_save) {
-            Toast.makeText(this, "TODO", Toast.LENGTH_SHORT).show();
+            //Toast.makeText(this, "TODO", Toast.LENGTH_SHORT).show();
+            DummyDB.postList.add(new Post(caption.getText().toString(), imageBitmap));
+            finish();
         }
         return super.onOptionsItemSelected(item);
     }

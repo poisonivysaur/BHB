@@ -19,6 +19,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
@@ -35,7 +36,6 @@ public class FeedFragment extends Fragment {
 
     private RecyclerView recyclerView;
     private PostAdapter postAdapter;
-    private static List<Post> postList;
 
     private final boolean FOR_FEED = true;
 
@@ -51,8 +51,7 @@ public class FeedFragment extends Fragment {
 
         recyclerView = view.findViewById(R.id.feed_recycleview);
 
-        postList = new ArrayList<>();
-        postAdapter = new PostAdapter(getContext(), postList, FOR_FEED);
+        postAdapter = new PostAdapter(getContext(), DummyDB.postList, FOR_FEED);
 
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getContext());
         recyclerView.setLayoutManager(mLayoutManager);
@@ -60,14 +59,17 @@ public class FeedFragment extends Fragment {
         recyclerView.addItemDecoration(itemDecoration);
         recyclerView.setAdapter(postAdapter);
 
-        preparePosts();
+        Toast.makeText(getContext(), "in feed fragment " + DummyDB.postList.size(), Toast.LENGTH_SHORT).show();
+
+        //preparePosts();
+        postAdapter.notifyDataSetChanged();
 
         return view;
     }
 
     public void preparePosts() {
-        for (int ctr = 0; ctr < 20; ctr ++) {
-            postList.add(new Post(getString(R.string.sample_caption)));
+        for (int ctr = 0; ctr < 2; ctr ++) {
+            DummyDB.postList.add(new Post(getString(R.string.sample_caption)));
         }
 
         postAdapter.notifyDataSetChanged();
