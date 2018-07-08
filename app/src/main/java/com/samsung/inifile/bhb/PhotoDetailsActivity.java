@@ -125,10 +125,7 @@ public class PhotoDetailsActivity extends AppCompatActivity{
 
                                 DummyDB.postList.add(new Post(caption.getText().toString() + "\n" + address, imageBitmap));
 
-                                /*moveCamera(new LatLng(currentLocation.getLatitude(), currentLocation.getLongitude()),
-                                        DEFAULT_ZOOM);*/
-
-                                moveCamera(new LatLng(14.564638, 120.993175),
+                                moveCamera(new LatLng(currentLocation.getLatitude(), currentLocation.getLongitude()),
                                         DEFAULT_ZOOM);
 
                             }else{
@@ -137,8 +134,6 @@ public class PhotoDetailsActivity extends AppCompatActivity{
                             }
                         }
                     });
-
-
 
                     Toast.makeText(this, "Posted successfully!", Toast.LENGTH_SHORT).show();
                 //}

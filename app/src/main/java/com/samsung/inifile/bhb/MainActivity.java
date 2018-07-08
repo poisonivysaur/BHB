@@ -88,6 +88,10 @@ public class MainActivity extends AppCompatActivity {
                 resetStack();
                 navItem = 2;
                 dispatchTakePictureIntent();
+                resetStack();
+                home = new HomeFragment();
+                fragmentManager = getSupportFragmentManager();
+                fragmentManager.beginTransaction().replace(R.id.main_fragment, home).commit();
                 return true;
             }
             else if (item.getItemId() == R.id.navigation_rank && navItem != 3) {
