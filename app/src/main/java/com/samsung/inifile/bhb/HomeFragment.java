@@ -72,7 +72,6 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback {
         mapFragment.getMapAsync(this);
 
         infoFab = view.findViewById(R.id.fab_info);
-        infoFab.setVisibility(View.INVISIBLE);
         infoFab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -110,13 +109,9 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback {
             }
             mMap.setMyLocationEnabled(true);
             mMap.getUiSettings().setMyLocationButtonEnabled(false);
-<<<<<<< HEAD
-=======
-
             for (int i = 0; i < DummyDB.markers.size(); i ++) {
                 mMap.addMarker(DummyDB.markers.get(i));
             }
->>>>>>> 35226f0929af78239fa0bcc0a898c1402cd8f20f
         }
     }
 
