@@ -37,6 +37,8 @@ import android.widget.Toolbar;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.maps.CameraUpdateFactory;
+import com.google.android.gms.maps.MapsInitializer;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -114,6 +116,9 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        MapsInitializer.initialize(this);
+        initMarkers();
 
         String[] permissions = {android.Manifest.permission.ACCESS_FINE_LOCATION,
                 android.Manifest.permission.ACCESS_COARSE_LOCATION};
@@ -210,5 +215,78 @@ public class MainActivity extends AppCompatActivity {
 
     public boolean getLocationPermissionsGranted() {
         return mLocationPermissionsGranted;
+    }
+
+    private void initMarkers() {
+
+        MarkerOptions options = new MarkerOptions()
+                .position(new LatLng(14.562939, 120.995189))
+                .title(getString(R.string.blockage))
+                .icon(BitmapDescriptorFactory.defaultMarker(340));
+
+        DummyDB.markers.add(options);
+
+        options = new MarkerOptions()
+                .position(new LatLng(14.562702, 120.995359))
+                .title(getString(R.string.minor))
+                .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_VIOLET));
+
+        DummyDB.markers.add(options);
+
+        options = new MarkerOptions()
+                .position(new LatLng(14.562628, 120.995137))
+                .title(getString(R.string.major))
+                .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_VIOLET));
+
+        DummyDB.markers.add(options);
+
+        options = new MarkerOptions()
+                .position(new LatLng(14.562453, 120.994777))
+                .title(getString(R.string.rally))
+                .icon(BitmapDescriptorFactory.defaultMarker(231));
+
+        DummyDB.markers.add(options);
+
+        options = new MarkerOptions()
+                .position(new LatLng(14.562980, 120.995027))
+                .title(getString(R.string.gutter))
+                .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_YELLOW));
+
+        DummyDB.markers.add(options);
+
+        options = new MarkerOptions()
+                .position(new LatLng(14.563061, 120.994938))
+                .title(getString(R.string.knee))
+                .icon(BitmapDescriptorFactory.defaultMarker(15));
+
+        DummyDB.markers.add(options);
+
+        options = new MarkerOptions()
+                .position(new LatLng(14.562856, 120.995643))
+                .title(getString(R.string.waist))
+                .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_ORANGE));
+
+        DummyDB.markers.add(options);
+
+        options = new MarkerOptions()
+                .position(new LatLng(14.562933, 120.995816))
+                .title(getString(R.string.chest))
+                .icon(BitmapDescriptorFactory.defaultMarker(11));
+
+        DummyDB.markers.add(options);
+
+        options = new MarkerOptions()
+                .position(new LatLng(14.562830, 120.995024))
+                .title(getString(R.string.neck))
+                .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED));
+
+        DummyDB.markers.add(options);
+
+        options = new MarkerOptions()
+                .position(new LatLng(14.562493, 120.995247))
+                .title(getString(R.string.blockage))
+                .icon(BitmapDescriptorFactory.defaultMarker(340));
+
+        DummyDB.markers.add(options);
     }
 }

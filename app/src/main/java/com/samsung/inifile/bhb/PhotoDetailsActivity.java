@@ -214,15 +214,15 @@ public class PhotoDetailsActivity extends AppCompatActivity{
                 options.title(level.getText().toString());
 
                 switch (selectedId) {
-                    case 0: options.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED));
+                    case 0: options.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_YELLOW));
                             break;
-                    case 1: options.icon(BitmapDescriptorFactory.defaultMarker(11));
+                    case 1: options.icon(BitmapDescriptorFactory.defaultMarker(15));
                             break;
                     case 2: options.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_ORANGE));
                             break;
-                    case 3: options.icon(BitmapDescriptorFactory.defaultMarker(15));
+                    case 3: options.icon(BitmapDescriptorFactory.defaultMarker(11));
                             break;
-                    case 4: options.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_YELLOW));
+                    case 4: options.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED));
                             break;
                 }
             }
