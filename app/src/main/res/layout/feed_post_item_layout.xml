@@ -1,13 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:card_view="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="wrap_content"
+    android:fillViewport="true"
+    tools:context=".ProfileFragment">
 
     <android.support.v7.widget.CardView
-<<<<<<< HEAD
         android:layout_width="match_parent"
         android:layout_height="match_parent" >
 
@@ -16,47 +17,17 @@
             android:layout_height="match_parent">
 
             <LinearLayout
-                android:id="@+id/linearLayout"
+                android:id="@+id/linearLayout2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="16dp"
-                android:orientation="horizontal"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent">
 
                 <ImageView
                     android:id="@+id/profile_pic"
                     android:layout_width="100dp"
-=======
-        android:id="@+id/card_view"
-        card_view:cardCornerRadius="@dimen/card_album_radius"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_marginTop="16dp"
-        android:layout_margin="@dimen/card_margin"
-        android:elevation="3dp">
-
-        <LinearLayout
-            android:id="@+id/linearLayout"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="16dp"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="16dp"
-            android:orientation="vertical"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
-                <ImageView
-                    android:id="@+id/profile_pic"
-                    android:layout_width="0dp"
->>>>>>> 9bae33c27b013d36aeee42565b936c5ee868bb2e
                     android:layout_height="100dp"
                     android:layout_weight="1"
                     android:tint="@color/colorPrimary"
@@ -95,12 +66,11 @@
                 </LinearLayout>
 
             </LinearLayout>
-<<<<<<< HEAD
 
             <ImageView
                 android:id="@+id/feed_pic"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:layout_marginEnd="8dp"
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="8dp"
@@ -108,7 +78,7 @@
                 android:scaleType="fitXY"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/linearLayout"
+                app:layout_constraintTop_toBottomOf="@+id/linearLayout2"
                 app:srcCompat="@drawable/bhb" />
 
             <TextView
@@ -116,7 +86,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="top|bottom|center_vertical|fill_vertical|center|fill"
-                android:layout_marginBottom="16dp"
+                android:layout_marginBottom="8dp"
                 android:layout_marginEnd="8dp"
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="8dp"
@@ -130,29 +100,7 @@
                 tools:text="@string/sample_caption" />
 
         </android.support.constraint.ConstraintLayout>
-=======
 
-            <ImageView
-                android:id="@+id/feed_pic"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:adjustViewBounds="true"
-                app:srcCompat="@drawable/bhb" />
-
-            <TextView
-                android:id="@+id/caption"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="top|bottom|center_vertical|fill_vertical|center|fill"
-                android:layout_marginTop="16dp"
-                android:layout_marginBottom="16dp"
-                android:text="@string/sample_caption"
-                android:textColor="@android:color/black"
-                android:textSize="@dimen/subheading_label"
-                tools:text="@string/sample_caption" />
-
-        </LinearLayout>
->>>>>>> 9bae33c27b013d36aeee42565b936c5ee868bb2e
     </android.support.v7.widget.CardView>
 
-</android.support.constraint.ConstraintLayout>
+</ScrollView>
