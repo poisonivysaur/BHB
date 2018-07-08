@@ -44,5 +44,6 @@
     <!-- Default screen margins, per the Android Design guidelines. -->
 
     <dimen name="post">5dp</dimen>
+    <dimen name="feed">3dp</dimen>
 
 </resources>
