@@ -106,6 +106,7 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback {
     }
 
     private GoogleMap mMap;
+    private String lastId = "";
 
     @Override
     public void onMapReady(GoogleMap googleMap) {
@@ -120,9 +121,28 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback {
             }
             mMap.setMyLocationEnabled(true);
             mMap.getUiSettings().setMyLocationButtonEnabled(false);
-            for (int i = 0; i < DummyDB.markers.size(); i ++) {
-                mMap.addMarker(DummyDB.markers.get(i));
-            }
+
+            mMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
+                @Override
+                public boolean onMarkerClick(Marker marker) {
+                    Log.d(TAG, "onMarkerClick" + marker.getTitle());
+                    String id = marker.getId();
+
+                    if (lastId.equals(id)) {
+                        marker.hideInfoWindow();
+                        lastId = "";
+                        Log.d(TAG, "onMarkerClick: hidden");
+                    }
+                    else {
+                        marker.showInfoWindow();
+                        lastId = id;
+                        Log.d(TAG, "onMarkerClick: shown");
+                    }
+
+                    return true;
+                }
+            });
+
             for (int i = 0; i < DummyDB.markers.size(); i ++) {
                 mMap.addMarker(DummyDB.markers.get(i));
             }
