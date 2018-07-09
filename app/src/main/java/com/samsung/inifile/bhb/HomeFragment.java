@@ -52,9 +52,11 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.sql.SQLOutput;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Random;
 
 public class HomeFragment extends Fragment implements OnMapReadyCallback {
 
@@ -127,50 +129,67 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback {
         }
 
         //HIGHLIGHT ROUTES
-        LatLng origin = new LatLng(14.625536, 121.067158);
 
-        LatLng destination = new LatLng(14.627962, 121.064824);
+        DummyDB.origin.add(new LatLng(14.569961, 120.991618));
+        DummyDB.destination.add(new LatLng(14.563340, 120.994836));
+        DummyDB.origin.add(new LatLng(14.562520, 120.994916));
+        DummyDB.destination.add(new LatLng(14.566186, 121.002415));
+        DummyDB.origin.add(new LatLng(14.568562, 120.990237));
+        DummyDB.destination.add(new LatLng(14.564896, 120.990306));
 
-        List<LatLng> path = new ArrayList();
+        List<Integer> floodColors = new ArrayList<>();
+        floodColors.add(getResources().getColor(R.color.red));
+        floodColors.add(getResources().getColor(R.color.red_orange));
+        floodColors.add(getResources().getColor(R.color.orange));
+        floodColors.add(getResources().getColor(R.color.yellow_orange));
+        floodColors.add(getResources().getColor(R.color.yellow));
 
-        //Execute Directions API request
-        GeoApiContext context = new GeoApiContext.Builder()
-                .apiKey("AIzaSyBrPt88vvoPDDn_imh-RzCXl5Ha2F2LYig")
-                .build();
-        DirectionsApiRequest req = DirectionsApi.getDirections(context, "14.625536, 121.067158", "14.627962, 121.064824");
-        try {
-            DirectionsResult res = req.await();
+        for (int ctr = 0; ctr < DummyDB.origin.size() && ctr < DummyDB.destination.size(); ctr ++) {
+            LatLng origin = DummyDB.origin.get(ctr);
 
-            //Loop through legs and steps to get encoded polylines of each step
-            if (res.routes != null && res.routes.length > 0) {
-                DirectionsRoute route = res.routes[0];
+            LatLng destination = DummyDB.destination.get(ctr);
 
-                if (route.legs !=null) {
-                    for(int i=0; i<route.legs.length; i++) {
-                        DirectionsLeg leg = route.legs[i];
-                        if (leg.steps != null) {
-                            for (int j=0; j<leg.steps.length;j++){
-                                DirectionsStep step = leg.steps[j];
-                                if (step.steps != null && step.steps.length >0) {
-                                    for (int k=0; k<step.steps.length;k++){
-                                        DirectionsStep step1 = step.steps[k];
-                                        EncodedPolyline points1 = step1.polyline;
-                                        if (points1 != null) {
-                                            //Decode polyline and add points to list of route coordinates
-                                            List<com.google.maps.model.LatLng> coords1 = points1.decodePath();
-                                            for (com.google.maps.model.LatLng coord1 : coords1) {
-                                                path.add(new LatLng(coord1.lat, coord1.lng));
-                                                //Log.d("mamamo", "mamamo");
+            List<LatLng> path = new ArrayList();
+
+            //Execute Directions API request
+            GeoApiContext context = new GeoApiContext.Builder()
+                    .apiKey("AIzaSyBrPt88vvoPDDn_imh-RzCXl5Ha2F2LYig")
+                    .build();
+            DirectionsApiRequest req = DirectionsApi.getDirections(context, origin.toString().substring(10).substring(0, origin.toString().substring(10).length() - 1), destination.toString().substring(10).substring(0, destination.toString().substring(10).length() - 1));
+            try {
+                DirectionsResult res = req.await();
+
+                //Loop through legs and steps to get encoded polylines of each step
+                if (res.routes != null && res.routes.length > 0) {
+                    DirectionsRoute route = res.routes[0];
+
+                    if (route.legs != null) {
+                        for (int i = 0; i < route.legs.length; i++) {
+                            DirectionsLeg leg = route.legs[i];
+                            if (leg.steps != null) {
+                                for (int j = 0; j < leg.steps.length; j++) {
+                                    DirectionsStep step = leg.steps[j];
+                                    if (step.steps != null && step.steps.length > 0) {
+                                        for (int k = 0; k < step.steps.length; k++) {
+                                            DirectionsStep step1 = step.steps[k];
+                                            EncodedPolyline points1 = step1.polyline;
+                                            if (points1 != null) {
+                                                //Decode polyline and add points to list of route coordinates
+                                                List<com.google.maps.model.LatLng> coords1 = points1.decodePath();
+                                                for (com.google.maps.model.LatLng coord1 : coords1) {
+                                                    path.add(new LatLng(coord1.lat, coord1.lng));
+                                                    //Log.d("mamamo", "mamamo");
+                                                }
                                             }
                                         }
-                                    }
-                                } else {
-                                    EncodedPolyline points = step.polyline;
-                                    if (points != null) {
-                                        //Decode polyline and add points to list of route coordinates
-                                        List<com.google.maps.model.LatLng> coords = points.decodePath();
-                                        for (com.google.maps.model.LatLng coord : coords) {
-                                            path.add(new LatLng(coord.lat, coord.lng));
+                                    } else {
+                                        EncodedPolyline points = step.polyline;
+                                        if (points != null) {
+                                            //Decode polyline and add points to list of route coordinates
+                                            List<com.google.maps.model.LatLng> coords = points.decodePath();
+                                            for (com.google.maps.model.LatLng coord : coords) {
+                                                path.add(new LatLng(coord.lat, coord.lng));
+                                            }
                                         }
                                     }
                                 }
@@ -178,16 +197,17 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback {
                         }
                     }
                 }
+            } catch (Exception ex) {
+                Log.e(TAG, ex.getLocalizedMessage());
+                //Log.d("mamamo", "mamamo");
             }
-        } catch(Exception ex) {
-            Log.e(TAG, ex.getLocalizedMessage());
-            //Log.d("mamamo", "mamamo");
-        }
 
-        //Draw the polyline
-        if (path.size() > 0) {
-            PolylineOptions opts = new PolylineOptions().addAll(path).color(Color.RED).width(10);
-            mMap.addPolyline(opts);
+            //Draw the polyline
+            Random rand = new Random();
+            if (path.size() > 0) {
+                PolylineOptions opts = new PolylineOptions().addAll(path).color(floodColors.get(rand.nextInt(floodColors.size()))).width(10);
+                mMap.addPolyline(opts);
+            }
         }
     }
 
