@@ -127,21 +127,17 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback {
         }
 
         //HIGHLIGHT ROUTES
-        LatLng barcelona = new LatLng(41.385064,2.173403);
-        mMap.addMarker(new MarkerOptions().position(barcelona).title("Marker in Barcelona"));
+        LatLng origin = new LatLng(14.625536, 121.067158);
 
-        LatLng madrid = new LatLng(40.416775,-3.70379);
-        mMap.addMarker(new MarkerOptions().position(madrid).title("Marker in Madrid"));
-
-        LatLng zaragoza = new LatLng(41.648823,-0.889085);
+        LatLng destination = new LatLng(14.627962, 121.064824);
 
         List<LatLng> path = new ArrayList();
 
         //Execute Directions API request
         GeoApiContext context = new GeoApiContext.Builder()
-                .apiKey("AIzaSyCyjJlwH7NltlEdo30ewyqAn9tby2Qlsbo")
+                .apiKey("AIzaSyBrPt88vvoPDDn_imh-RzCXl5Ha2F2LYig")
                 .build();
-        DirectionsApiRequest req = DirectionsApi.getDirections(context, "41.385064,2.173403", "40.416775,-3.70379");
+        DirectionsApiRequest req = DirectionsApi.getDirections(context, "14.625536, 121.067158", "14.627962, 121.064824");
         try {
             DirectionsResult res = req.await();
 
@@ -164,6 +160,7 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback {
                                             List<com.google.maps.model.LatLng> coords1 = points1.decodePath();
                                             for (com.google.maps.model.LatLng coord1 : coords1) {
                                                 path.add(new LatLng(coord1.lat, coord1.lng));
+                                                //Log.d("mamamo", "mamamo");
                                             }
                                         }
                                     }
@@ -184,11 +181,12 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback {
             }
         } catch(Exception ex) {
             Log.e(TAG, ex.getLocalizedMessage());
+            //Log.d("mamamo", "mamamo");
         }
 
         //Draw the polyline
         if (path.size() > 0) {
-            PolylineOptions opts = new PolylineOptions().addAll(path).color(Color.RED).width(5);
+            PolylineOptions opts = new PolylineOptions().addAll(path).color(Color.RED).width(10);
             mMap.addPolyline(opts);
         }
     }
