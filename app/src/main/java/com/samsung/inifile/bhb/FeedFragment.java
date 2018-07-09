@@ -14,6 +14,7 @@ import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -66,20 +67,39 @@ public class FeedFragment extends Fragment {
 
         //Toast.makeText(getContext(), "in feed fragment " + DummyDB.postList.size(), Toast.LENGTH_SHORT).show();
 
-        //preparePosts();
+        preparePosts();
 
         if(DummyDB.postList.isEmpty()) {
             recyclerView.setVisibility(View.GONE);
             mEmptyStateTextView.setVisibility(View.VISIBLE);
+        } else {
+            Bundle bundle = this.getArguments();
+            Post post = DummyDB.postList.get(bundle.getInt("index", 0));
+            DummyDB.postList.clear();
+            DummyDB.postList.add(post);
+
+            /*
+            if (bundle != null) {
+                for (int i = 0; i < postSize; i ++) {
+                    Log.d("DUMMYDB", "onCreateView: " + bundle.getInt("index", 0));
+                    if (i != bundle.getInt("index", 0)) {
+                        DummyDB.postList.remove(i);
+                    }
+                }
+
+                //recyclerView.scrollToPosition(bundle.getInt("index", 0));
+            }
+            */
         }
+
         postAdapter.notifyDataSetChanged();
 
         return view;
     }
 
     public void preparePosts() {
-        for (int ctr = 0; ctr < 2; ctr ++) {
-            DummyDB.postList.add(new Post(getString(R.string.sample_caption)));
+        for (int ctr = 0; ctr < 10; ctr ++) {
+            DummyDB.postList.add(new Post(getString(R.string.sample_caption) + "ctr: " + ctr));
         }
 
         postAdapter.notifyDataSetChanged();
@@ -119,4 +139,11 @@ public class FeedFragment extends Fragment {
         }
         return false;
     }
+/*
+    @Override
+    public void onBackPressed(FeedFragment feedFragment) {
+        super.getActivity().onBackPressed();
+        getActivity().getSupportFragmentManager().beginTransaction().remove(feedFragment).commit();
+    }*/
+
 }
