@@ -127,18 +127,15 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback {
             mMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
                 @Override
                 public boolean onMarkerClick(Marker marker) {
-                    Log.d(TAG, "onMarkerClick" + marker.getTitle());
                     String id = marker.getId();
 
                     if (lastId.equals(id)) {
                         marker.hideInfoWindow();
                         lastId = "";
-                        Log.d(TAG, "onMarkerClick: hidden");
                     }
                     else {
                         marker.showInfoWindow();
                         lastId = id;
-                        Log.d(TAG, "onMarkerClick: shown");
                     }
 
                     return true;
@@ -148,7 +145,6 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback {
             DummyDB.markerIds.clear();
             for (int i = 0; i < DummyDB.markers.size(); i ++) {
                 DummyDB.markerIds.add(mMap.addMarker(DummyDB.markers.get(i)).getId());
-                Log.d(TAG, "onInfoWindowClick: ID:" + DummyDB.markerIds.get(i));
             }
 
             mMap.setOnInfoWindowClickListener(new GoogleMap.OnInfoWindowClickListener() {
@@ -158,7 +154,6 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback {
                     int i = 0;
 
                     while (i < DummyDB.markerIds.size() && !arg0.getId().equals(DummyDB.markerIds.get(i))) {
-                        Log.d(TAG, "onInfoWindowClick: arg0:" + arg0.getId() + " markers:" + DummyDB.markerIds.get(i));
                         i ++;
                     }
 
@@ -170,7 +165,6 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback {
                         feedFragment.setArguments(bundle);
 
                         ((MainActivity) getActivity()).goToFeed(feedFragment);
-                        //getFragmentManager().beginTransaction().add(R.id.main_fragment, feedFragment).commit();
                     }
                 }
             });

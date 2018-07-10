@@ -52,8 +52,8 @@ public class ProfileFragment extends Fragment {
     private GoogleSignInClient mGoogleSignInClient;
 
     private RecyclerView recyclerView;
-    private PostAdapter postAdapter;
-    private List<Post> postList;
+    private ProfilePostAdapter profilePostAdapter;
+    private List<Post> profilePostList;
 
     //google account variables
     String personName;
@@ -75,14 +75,14 @@ public class ProfileFragment extends Fragment {
 
         recyclerView = view.findViewById(R.id.profile_recycleview);
 
-        postList = new ArrayList<>();
-        postAdapter = new PostAdapter(getContext(), postList);
+        profilePostList = new ArrayList<>();
+        profilePostAdapter = new ProfilePostAdapter(getContext(), profilePostList);
 
         RecyclerView.LayoutManager mLayoutManager = new GridLayoutManager(getContext(), 3);
         recyclerView.setLayoutManager(mLayoutManager);
         ItemOffsetDecoration itemDecoration = new ItemOffsetDecoration(getContext(), R.dimen.post);
         recyclerView.addItemDecoration(itemDecoration);
-        recyclerView.setAdapter(postAdapter);
+        recyclerView.setAdapter(profilePostAdapter);
 
         //Google account details
         GoogleSignInAccount acct = GoogleSignIn.getLastSignedInAccount(getActivity());
@@ -130,11 +130,13 @@ public class ProfileFragment extends Fragment {
     }
 
     public void preparePosts() {
-        for (int ctr = 0; ctr < 20; ctr ++) {
-            postList.add(new Post());
+        for (int ctr = 0; ctr < DummyDB.postList.size(); ctr ++) {
+            if (DummyDB.postList.get(ctr).getName() == personName) {
+                profilePostList.add(DummyDB.postList.get(ctr));
+            }
         }
 
-        postAdapter.notifyDataSetChanged();
+        profilePostAdapter.notifyDataSetChanged();
     }
 
     public static class ItemOffsetDecoration extends RecyclerView.ItemDecoration {

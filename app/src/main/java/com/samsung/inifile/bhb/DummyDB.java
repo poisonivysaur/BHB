@@ -11,7 +11,6 @@ public class DummyDB {
 
     //public static List<Post> postList =  (new ArrayList<>()).add(new Post("GRABE!!!!!! Ang baha naman dito sa labas ng Mcdo! sana makauwi na akong maaga ngayon :( #stranded #walanafinishna"));
     public static List<Post> postList =  new ArrayList<>();
-    //public static List<Post> postListCopy =  new ArrayList<>();
     public static List<MarkerOptions> markers = new ArrayList<>();
     public static List<String> markerIds = new ArrayList<>();
     public static List<LatLng> origin = new ArrayList<>();

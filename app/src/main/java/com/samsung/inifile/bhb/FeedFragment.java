@@ -71,27 +71,13 @@ public class FeedFragment extends Fragment {
 
         preparePosts();
         Bundle bundle = this.getArguments();
-        //Boolean bool = true;
 
         if(DummyDB.postList.isEmpty()) {
             recyclerView.setVisibility(View.GONE);
             mEmptyStateTextView.setVisibility(View.VISIBLE);
         } else if (bundle != null) {
-                Log.d(TAG, "onCreateView: size():" + DummyDB.postList.size() + " index:" + bundle.getInt("index", 0));
-                /*Post post = DummyDB.postList.get(bundle.getInt("index", 0));
-                bool = false;
-                DummyDB.postList.clear();
-                DummyDB.postList.add(post);*/
-
             recyclerView.scrollToPosition(bundle.getInt("index"));
         }
-/*
-        if (bool) {
-            DummyDB.postList.clear();
-            DummyDB.postList.addAll(DummyDB.postListCopy);
-            Log.d(TAG, "onCreateView: Bool is true" + DummyDB.postList.size());
-        }
-*/
         postAdapter.notifyDataSetChanged();
 
         return view;
@@ -101,7 +87,6 @@ public class FeedFragment extends Fragment {
         if (DummyDB.postList.isEmpty()) {
             for (int ctr = 0; ctr < 10; ctr ++) {
                 DummyDB.postList.add(new Post(getString(R.string.sample_caption) + "ctr: " + ctr));
-                //DummyDB.postListCopy.add(new Post(getString(R.string.sample_caption) + "ctr: " + ctr));
             }
             postAdapter.notifyDataSetChanged();
         }
