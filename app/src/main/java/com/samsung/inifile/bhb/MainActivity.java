@@ -2,6 +2,7 @@ package com.samsung.inifile.bhb;
 
 import android.app.Activity;
 import android.app.SearchManager;
+import android.content.ClipData;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -63,6 +64,8 @@ public class MainActivity extends AppCompatActivity {
     private static final int LOCATION_PERMISSION_REQUEST_CODE = 1234;
 
     private Boolean mLocationPermissionsGranted = false;
+
+    BottomNavigationView navigation;
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -192,7 +195,7 @@ public class MainActivity extends AppCompatActivity {
     public void initMap() {
         setContentView(R.layout.activity_main);
 
-        BottomNavigationView navigation = findViewById(R.id.navigation);
+        navigation = findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
         BottomNavigationViewHelper.disableShiftMode(navigation);
 
@@ -303,5 +306,6 @@ public class MainActivity extends AppCompatActivity {
         navItem = 1;
         fragmentManager = getSupportFragmentManager();
         fragmentManager.beginTransaction().replace(R.id.main_fragment, feedFragment).addToBackStack(null).commit();
+        navigation.getMenu().getItem(1).setChecked(true);
     }
 }
