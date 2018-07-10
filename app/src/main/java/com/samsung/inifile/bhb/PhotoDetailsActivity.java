@@ -137,6 +137,7 @@ public class PhotoDetailsActivity extends AppCompatActivity{
                                 }
 
                                 DummyDB.postList.add(new Post(caption.getText().toString(), imageBitmap, address, personName));
+                                //DummyDB.postListCopy.add(new Post(caption.getText().toString(), imageBitmap, address, personName));
 
                                 moveCamera(new LatLng(currentLocation.getLatitude(), currentLocation.getLongitude()),
                                         DEFAULT_ZOOM);
@@ -153,7 +154,6 @@ public class PhotoDetailsActivity extends AppCompatActivity{
             }catch (SecurityException e){
                 Log.e(TAG, "getDeviceLocation: SecurityException: " + e.getMessage() );
             }
-
 
             finish();
         }

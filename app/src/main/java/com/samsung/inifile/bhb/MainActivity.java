@@ -218,71 +218,90 @@ public class MainActivity extends AppCompatActivity {
         MarkerOptions options = new MarkerOptions()
                 .position(new LatLng(14.562939, 120.995189))
                 .title(getString(R.string.blockage))
-                .icon(BitmapDescriptorFactory.defaultMarker(340));
+                .icon(BitmapDescriptorFactory.defaultMarker(340))
+                .snippet("Click this to check out the post");
 
         DummyDB.markers.add(options);
 
         options = new MarkerOptions()
                 .position(new LatLng(14.562702, 120.995359))
                 .title(getString(R.string.minor))
-                .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_VIOLET));
+                .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_VIOLET))
+                .snippet("Click this to check out the post");
 
         DummyDB.markers.add(options);
 
         options = new MarkerOptions()
                 .position(new LatLng(14.562628, 120.995137))
                 .title(getString(R.string.major))
-                .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_VIOLET));
+                .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_VIOLET))
+                .snippet("Click this to check out the post");
 
         DummyDB.markers.add(options);
 
         options = new MarkerOptions()
                 .position(new LatLng(14.562453, 120.994777))
                 .title(getString(R.string.rally))
-                .icon(BitmapDescriptorFactory.defaultMarker(231));
+                .icon(BitmapDescriptorFactory.defaultMarker(231))
+                .snippet("Click this to check out the post");
 
         DummyDB.markers.add(options);
 
         options = new MarkerOptions()
                 .position(new LatLng(14.562980, 120.995027))
                 .title(getString(R.string.gutter))
-                .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_YELLOW));
+                .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_YELLOW))
+                .snippet("Click this to check out the post");
 
         DummyDB.markers.add(options);
 
         options = new MarkerOptions()
                 .position(new LatLng(14.563061, 120.994938))
                 .title(getString(R.string.knee))
-                .icon(BitmapDescriptorFactory.defaultMarker(15));
+                .icon(BitmapDescriptorFactory.defaultMarker(15))
+                .snippet("Click this to check out the post");
 
         DummyDB.markers.add(options);
 
         options = new MarkerOptions()
                 .position(new LatLng(14.562856, 120.995643))
                 .title(getString(R.string.waist))
-                .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_ORANGE));
+                .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_ORANGE))
+                .snippet("Click this to check out the post");
 
         DummyDB.markers.add(options);
 
         options = new MarkerOptions()
                 .position(new LatLng(14.562933, 120.995816))
                 .title(getString(R.string.chest))
-                .icon(BitmapDescriptorFactory.defaultMarker(11));
+                .icon(BitmapDescriptorFactory.defaultMarker(11))
+                .snippet("Click this to check out the post");
 
         DummyDB.markers.add(options);
 
         options = new MarkerOptions()
                 .position(new LatLng(14.562830, 120.995024))
                 .title(getString(R.string.neck))
-                .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED));
+                .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED))
+                .snippet("Click this to check out the post");
 
         DummyDB.markers.add(options);
 
         options = new MarkerOptions()
                 .position(new LatLng(14.562493, 120.995247))
                 .title(getString(R.string.blockage))
-                .icon(BitmapDescriptorFactory.defaultMarker(340));
+                .icon(BitmapDescriptorFactory.defaultMarker(340))
+                .snippet("Click this to check out the post");
 
         DummyDB.markers.add(options);
+
+        Log.d(TAG, "initMarkers: " + DummyDB.markers.size());
+    }
+
+    public void goToFeed(FeedFragment feedFragment) {
+        resetStack();
+        navItem = 1;
+        fragmentManager = getSupportFragmentManager();
+        fragmentManager.beginTransaction().replace(R.id.main_fragment, feedFragment).addToBackStack(null).commit();
     }
 }
