@@ -28,6 +28,7 @@ import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.firebase.auth.FirebaseAuth;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -41,6 +42,7 @@ public class FeedFragment extends Fragment {
     private PostAdapter postAdapter;
 
     private final boolean FOR_FEED = true;
+    private static final String TAG = "FeedFragment";
 
     @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
@@ -68,41 +70,41 @@ public class FeedFragment extends Fragment {
         //Toast.makeText(getContext(), "in feed fragment " + DummyDB.postList.size(), Toast.LENGTH_SHORT).show();
 
         preparePosts();
+        Bundle bundle = this.getArguments();
+        //Boolean bool = true;
 
         if(DummyDB.postList.isEmpty()) {
             recyclerView.setVisibility(View.GONE);
             mEmptyStateTextView.setVisibility(View.VISIBLE);
-        } else {
-            Bundle bundle = this.getArguments();
-            Post post = DummyDB.postList.get(bundle.getInt("index", 0));
-            DummyDB.postList.clear();
-            DummyDB.postList.add(post);
+        } else if (bundle != null) {
+                Log.d(TAG, "onCreateView: size():" + DummyDB.postList.size() + " index:" + bundle.getInt("index", 0));
+                /*Post post = DummyDB.postList.get(bundle.getInt("index", 0));
+                bool = false;
+                DummyDB.postList.clear();
+                DummyDB.postList.add(post);*/
 
-            /*
-            if (bundle != null) {
-                for (int i = 0; i < postSize; i ++) {
-                    Log.d("DUMMYDB", "onCreateView: " + bundle.getInt("index", 0));
-                    if (i != bundle.getInt("index", 0)) {
-                        DummyDB.postList.remove(i);
-                    }
-                }
-
-                //recyclerView.scrollToPosition(bundle.getInt("index", 0));
-            }
-            */
+            recyclerView.scrollToPosition(bundle.getInt("index"));
         }
-
+/*
+        if (bool) {
+            DummyDB.postList.clear();
+            DummyDB.postList.addAll(DummyDB.postListCopy);
+            Log.d(TAG, "onCreateView: Bool is true" + DummyDB.postList.size());
+        }
+*/
         postAdapter.notifyDataSetChanged();
 
         return view;
     }
 
     public void preparePosts() {
-        for (int ctr = 0; ctr < 10; ctr ++) {
-            DummyDB.postList.add(new Post(getString(R.string.sample_caption) + "ctr: " + ctr));
+        if (DummyDB.postList.isEmpty()) {
+            for (int ctr = 0; ctr < 10; ctr ++) {
+                DummyDB.postList.add(new Post(getString(R.string.sample_caption) + "ctr: " + ctr));
+                //DummyDB.postListCopy.add(new Post(getString(R.string.sample_caption) + "ctr: " + ctr));
+            }
+            postAdapter.notifyDataSetChanged();
         }
-
-        postAdapter.notifyDataSetChanged();
     }
 
     @Override
@@ -139,11 +141,4 @@ public class FeedFragment extends Fragment {
         }
         return false;
     }
-/*
-    @Override
-    public void onBackPressed(FeedFragment feedFragment) {
-        super.getActivity().onBackPressed();
-        getActivity().getSupportFragmentManager().beginTransaction().remove(feedFragment).commit();
-    }*/
-
 }

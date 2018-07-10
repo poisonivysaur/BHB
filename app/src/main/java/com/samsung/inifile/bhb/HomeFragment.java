@@ -145,54 +145,35 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback {
                 }
             });
 
+            DummyDB.markerIds.clear();
+            for (int i = 0; i < DummyDB.markers.size(); i ++) {
+                DummyDB.markerIds.add(mMap.addMarker(DummyDB.markers.get(i)).getId());
+                Log.d(TAG, "onInfoWindowClick: ID:" + DummyDB.markerIds.get(i));
+            }
+
             mMap.setOnInfoWindowClickListener(new GoogleMap.OnInfoWindowClickListener() {
 
                 @Override
                 public void onInfoWindowClick(Marker arg0) {
-                    int i = 0, j;
-                    //ArrayList<Marker> markers = new ArrayList<>();
-
-                    /*
-                    for (j = 0; j < DummyDB.markers.size(); j ++) {
-                        markers.add(mMap.addMarker(DummyDB.markers.get(j)));
-                    }
-
-                    Log.d(TAG, "onInfoWindowClick: " + DummyDB.postList.size() + " " + DummyDB.markers.size());
-                    while (i < DummyDB.markers.size() && arg0.getPosition() != DummyDB.markers.get(i).getPosition()) {
-                        Log.d(TAG, "onInfoWindowClick: " + i);
-                        Log.d(TAG, "onInfoWindowClick: arg0:" + arg0.getPosition() + " markers:" + DummyDB.markers.get(i).getPosition());
-                        i ++;
-                    }
-
-                    while (i < DummyDB.markers.size() && arg0.getId() != markers.get(i).getId()) {
-                        Log.d(TAG, "onInfoWindowClick: " + i);
-                        Log.d(TAG, "onInfoWindowClick: arg0:" + arg0.getId() + " markers:" + markers.get(i).getId());
-                        i ++;
-                    }
-                    */
+                    int i = 0;
 
                     while (i < DummyDB.markerIds.size() && !arg0.getId().equals(DummyDB.markerIds.get(i))) {
-                        Log.d(TAG, "onInfoWindowClick: " + i);
                         Log.d(TAG, "onInfoWindowClick: arg0:" + arg0.getId() + " markers:" + DummyDB.markerIds.get(i));
                         i ++;
                     }
 
-                    if (i < DummyDB.markers.size()) {
-                        Log.d(TAG, "onInfoWindowClick: working");
+                    if (i < DummyDB.markerIds.size()) {
                         Bundle bundle = new Bundle();
                         bundle.putInt("index", i);
 
                         FeedFragment feedFragment = new FeedFragment();
                         feedFragment.setArguments(bundle);
 
-                        getFragmentManager().beginTransaction().add(R.id.main_fragment, feedFragment).commit();
+                        ((MainActivity) getActivity()).goToFeed(feedFragment);
+                        //getFragmentManager().beginTransaction().add(R.id.main_fragment, feedFragment).commit();
                     }
                 }
             });
-
-            for (int i = 0; i < DummyDB.markers.size(); i ++) {
-                DummyDB.markerIds.add(mMap.addMarker(DummyDB.markers.get(i)).getId());
-            }
         }
 
         //HIGHLIGHT ROUTES
