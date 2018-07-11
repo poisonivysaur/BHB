@@ -136,7 +136,7 @@ public class PhotoDetailsActivity extends AppCompatActivity{
                                     personPhoto = acct.getPhotoUrl();
                                 }
 
-                                DummyDB.postList.add(new Post(caption.getText().toString(), imageBitmap, address, personName));
+                                DummyDB.postList.add(0, new Post(caption.getText().toString(), imageBitmap, address, personName));
                                 //DummyDB.postListCopy.add(new Post(caption.getText().toString(), imageBitmap, address, personName));
 
                                 moveCamera(new LatLng(currentLocation.getLatitude(), currentLocation.getLongitude()),
