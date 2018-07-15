@@ -1,10 +1,13 @@
 package com.samsung.inifile.bhb;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.graphics.Point;
+import android.location.Address;
+import android.location.Geocoder;
 import android.location.Location;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -16,13 +19,22 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AlertDialog;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.EditorInfo;
+import android.view.inputmethod.InputMethodManager;
+import android.widget.AutoCompleteTextView;
+import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
+import com.google.android.gms.location.places.Places;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -60,10 +72,12 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Random;
 
-public class HomeFragment extends Fragment implements OnMapReadyCallback {
+public class HomeFragment extends Fragment implements OnMapReadyCallback/*,
+        GoogleApiClient.OnConnectionFailedListener*/{
 
     private SupportMapFragment mapFragment;
     private FloatingActionButton infoFab;
+    private FloatingActionButton curLocFab;
 
     private static final String TAG = "HomeFragment";
 
@@ -92,6 +106,16 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback {
                 legendDialog();
             }
         });
+
+        curLocFab = view.findViewById(R.id.fab_cur_loc);
+        curLocFab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                getDeviceLocation();
+            }
+        });
+
+        searchText = view.findViewById(R.id.search_text);
 
         return view;
     }
@@ -167,7 +191,34 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback {
                         ((MainActivity) getActivity()).goToFeed(feedFragment);
                     }
                 }
+            });DummyDB.markerIds.clear();
+            for (int i = 0; i < DummyDB.markers.size(); i ++) {
+                DummyDB.markerIds.add(mMap.addMarker(DummyDB.markers.get(i)).getId());
+            }
+
+            mMap.setOnInfoWindowClickListener(new GoogleMap.OnInfoWindowClickListener() {
+
+                @Override
+                public void onInfoWindowClick(Marker arg0) {
+                    int i = 0;
+
+                    while (i < DummyDB.markerIds.size() && !arg0.getId().equals(DummyDB.markerIds.get(i))) {
+                        i ++;
+                    }
+
+                    if (i < DummyDB.markerIds.size()) {
+                        Bundle bundle = new Bundle();
+                        bundle.putInt("index", i);
+
+                        FeedFragment feedFragment = new FeedFragment();
+                        feedFragment.setArguments(bundle);
+
+                        ((MainActivity) getActivity()).goToFeed(feedFragment);
+                    }
+                }
             });
+
+            searchInit();
         }
 
         //HIGHLIGHT ROUTES
@@ -273,8 +324,20 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback {
                             Log.d(TAG, "onComplete: found location!");
                             Location currentLocation = (Location) task.getResult();
 
-                            moveCamera(new LatLng(currentLocation.getLatitude(), currentLocation.getLongitude()),
-                                    DEFAULT_ZOOM);
+                            LatLng latLng = new LatLng(currentLocation.getLatitude(), currentLocation.getLongitude());
+                            moveCamera(latLng, DEFAULT_ZOOM);
+                            try{
+
+                                MarkerOptions options = new MarkerOptions()
+                                        .position(latLng)
+                                        .title("YOU ARE HERE")
+                                        .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN));
+                                mMarker = mMap.addMarker(options);
+
+                            }catch (NullPointerException e){
+                                Log.e(TAG, "moveCamera: NullPointerException: " + e.getMessage() );
+                            }
+
 
                         }else{
                             Log.d(TAG, "onComplete: current location is null");
@@ -294,18 +357,83 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback {
         mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, zoom));
 
         //mMap.clear();
-
-            try{
-
-                MarkerOptions options = new MarkerOptions()
-                        .position(latLng)
-                        .title("YOU ARE HERE")
-                        .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN));
-                mMarker = mMap.addMarker(options);
-
-            }catch (NullPointerException e){
-                Log.e(TAG, "moveCamera: NullPointerException: " + e.getMessage() );
-            }
-
     }
+
+    //TEMPORARY SEARCH LOCATION
+    private EditText searchText;
+
+    public void searchInit() {
+        searchText.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                if(actionId == EditorInfo.IME_ACTION_SEARCH
+                        || actionId == EditorInfo.IME_ACTION_DONE
+                        || event.getAction() == event.ACTION_DOWN
+                        || event.getAction() == event.KEYCODE_ENTER) {
+
+                    geoLocate();
+                }
+                return false;
+            }
+        });
+    }
+
+    //SEARCH LOCATION
+    /*private AutoCompleteTextView searchText;
+    private PlaceAutoCompleteAdapter placeAutoCompleteAdapter;
+    private GoogleApiClient mGoogleApiClient;
+    private static final LatLngBounds LAT_LNG_BOUNDS = new LatLngBounds(
+            new LatLng(-40, -168), new LatLng(71, 136));
+
+    public void searchInit() {
+
+        mGoogleApiClient = new GoogleApiClient
+                .Builder(getContext())
+                .addApi(Places.GEO_DATA_API)
+                .addApi(Places.PLACE_DETECTION_API)
+                .enableAutoManage(getActivity(), this)
+                .build();
+
+        placeAutoCompleteAdapter = new PlaceAutoCompleteAdapter(getContext(), mGoogleApiClient, LAT_LNG_BOUNDS, null);
+
+        searchText.setAdapter(placeAutoCompleteAdapter);
+
+        searchText.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                if(actionId == EditorInfo.IME_ACTION_SEARCH
+                        || actionId == EditorInfo.IME_ACTION_DONE
+                        || event.getAction() == event.ACTION_DOWN
+                        || event.getAction() == event.KEYCODE_ENTER) {
+
+                    //EXECUTE METHOD  FOR SEARCHING
+                    geoLocate();
+                }
+                return false;
+            }
+        });
+    }*/
+
+    public void geoLocate(){
+        String searchString = searchText.getText().toString();
+
+        Geocoder geocoder = new Geocoder(getActivity());
+
+        List<Address> addressList = new ArrayList<>();
+        try {
+            addressList = geocoder.getFromLocationName(searchString, 1);
+        }catch (IOException e) {
+            Log.e(TAG, "geoLocate: IOException: " + e.getMessage());
+        }
+
+        if(addressList.size() > 0) {
+            Address address = addressList.get(0);
+            moveCamera(new LatLng(address.getLatitude(), address.getLongitude()), DEFAULT_ZOOM);
+        }
+    }
+
+    /*@Override
+    public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
+
+    }*/
 }
